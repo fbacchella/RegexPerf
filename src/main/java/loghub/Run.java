@@ -16,7 +16,7 @@ import joptsimple.OptionSet;
 public class Run {
 
     public static void main(String[] args) throws RunnerException {
-
+        
         OptionParser parser = new OptionParser( "f" );
         OptionSet options = parser.parse(args);
         options.nonOptionArguments();
@@ -46,7 +46,7 @@ public class Run {
                 .measurementIterations(measurementIterations)
                 .threads(3)
                 .forks(1)
-                .shouldFailOnError(true)
+                .shouldFailOnError(false)
                 .shouldDoGC(true)
                 .timeout(TimeValue.seconds(11 * 6 + 2 * 11))
                 //.jvmArgs("-XX:+UnlockDiagnosticVMOptions", "-XX:+PrintInlining")

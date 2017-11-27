@@ -49,4 +49,12 @@ public class StringToBytesTest {
         Assert.assertNotNull(bytters.getBytesAscii()); 
     }
 
+    @Test
+    public void getBytesAsciiReuse() throws UnsupportedEncodingException {
+        Assert.assertNotNull(bytters.getBytesAsciiReuse()); 
+    }
+    @Test
+    public void getBytesAsciiUnsafe() throws UnsupportedEncodingException {
+        Assert.assertNotNull(bytters.getBytesAsciiUnsafe()); 
+    }
 }

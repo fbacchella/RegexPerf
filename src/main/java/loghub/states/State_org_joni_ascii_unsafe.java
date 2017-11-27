@@ -8,15 +8,16 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 import loghub.Runner;
+import loghub.UnsafeUtils;
 
 @State(Scope.Benchmark)
-public class State_org_joni_ascii extends Runner<org.joni.Regex> {
+public class State_org_joni_ascii_unsafe extends Runner<org.joni.Regex> {
+
 
     private static byte[] getBytesAscii(String searched) {
-        int length = searched.length();
-        char[] buffer = new char[length];
-        searched.getChars(0, length, buffer, 0);
-        byte b[] = new byte[length];
+        final int length = searched.length();
+        final char buffer[] = UnsafeUtils.toCharArray(searched);
+        final byte b[] = new byte[length];
         for (int j = 0; j < length; j++) {
             b[j] = (byte) (buffer[j] & 0x7F);
         }

@@ -54,7 +54,7 @@ public class StringToBytes {
     }
 
     @Benchmark
-    public byte[] getBytesAsciiunsafe() {
+    public byte[] getBytesAsciiUnsafe() {
         final int length = STR.length();
         final char buffer[] = UnsafeUtils.toCharArray(STR);
         final byte b[] = new byte[length];

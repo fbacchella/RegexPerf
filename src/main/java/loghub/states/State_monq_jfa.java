@@ -12,6 +12,17 @@ import loghub.Runner;
  * @param <P>
  */
 @State(Scope.Benchmark)
-public abstract class State_monq_jfa<P> extends Runner<P/*monq.jfa.Regexp*/> {
+public class State_monq_jfa<P> extends Runner<P> {
+
+    @Override
+    protected P generate(String i) {
+        throw new AssertionError("Not mavenized");
+    }
+
+    @Override
+    protected boolean match(P pattern, String searched) {
+        throw new AssertionError("Not Mavenized");
+    }
+
 
 }

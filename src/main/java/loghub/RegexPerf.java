@@ -9,6 +9,8 @@ import loghub.states.State_jregex;
 import loghub.states.State_org_apache_xerces_impl_xpath_regex;
 import loghub.states.State_org_joni;
 import loghub.states.State_org_joni_ascii;
+import loghub.states.State_org_joni_ascii_reuse;
+import loghub.states.State_org_joni_ascii_unsafe;
 import loghub.states.State_org_joni_utf16le;
 
 /**
@@ -62,7 +64,7 @@ public class RegexPerf {
 
     @Benchmark
     public void big_java_util_regex(State_java_util_regex state) {
-        state.runbig();;
+        state.runbig();
     }
 
    // @Benchmark
@@ -92,6 +94,16 @@ public class RegexPerf {
 
     @Benchmark
     public void org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state) {
+        state.run();
+    }
+
+    @Benchmark
+    public void org_joni_ascii_reuse(State_org_joni_ascii_reuse state) {
+        state.run();
+    }
+
+    @Benchmark
+    public void org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state) {
         state.run();
     }
 

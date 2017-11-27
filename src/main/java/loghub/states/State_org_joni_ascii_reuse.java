@@ -10,11 +10,12 @@ import org.openjdk.jmh.annotations.State;
 import loghub.Runner;
 
 @State(Scope.Benchmark)
-public class State_org_joni_ascii extends Runner<org.joni.Regex> {
+public class State_org_joni_ascii_reuse extends Runner<org.joni.Regex> {
 
+    static final ThreadLocal<char[]> holder = ThreadLocal.withInitial(() -> new char[4096]);
     private static byte[] getBytesAscii(String searched) {
         int length = searched.length();
-        char[] buffer = new char[length];
+        char[] buffer = holder.get();
         searched.getChars(0, length, buffer, 0);
         byte b[] = new byte[length];
         for (int j = 0; j < length; j++) {
