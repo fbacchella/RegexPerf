@@ -10,6 +10,7 @@ import loghub.states.State_com_stevesoft_pat;
 import loghub.states.State_dk_brics_automaton;
 import loghub.states.State_gnu_regexp;
 import loghub.states.State_gnu_rex;
+import loghub.states.State_io_thekraken_grok_api;
 import loghub.states.State_java_util_regex;
 import loghub.states.State_jregex;
 import loghub.states.State_kmy_regex_util;
@@ -72,6 +73,11 @@ public class RunnerTest {
     @Test(expected = AssertionError.class)
     public void gnu_rex() {
         run(new State_gnu_rex(), true);
+    }
+
+    @Test
+    public void io_thekraken_grok_api() {
+        run(new State_io_thekraken_grok_api(), true);
     }
 
     @Test

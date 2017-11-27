@@ -4,6 +4,7 @@ package loghub;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import loghub.states.State_gnu_regexp;
+import loghub.states.State_io_thekraken_grok_api;
 import loghub.states.State_java_util_regex;
 import loghub.states.State_jregex;
 import loghub.states.State_org_apache_xerces_impl_xpath_regex;
@@ -70,6 +71,16 @@ public class RegexPerf {
    // @Benchmark
     public void jregex(State_jregex state) {
         state.run();
+    }
+
+    @Benchmark
+    public void io_thekraken_grok_api(State_io_thekraken_grok_api state) {
+        state.run();
+    }
+
+    @Benchmark
+    public void big_io_thekraken_grok_api(State_io_thekraken_grok_api state) {
+        state.runbig();
     }
 
     //    @Benchmark
