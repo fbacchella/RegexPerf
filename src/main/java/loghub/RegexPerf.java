@@ -3,10 +3,13 @@ package loghub;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
+import loghub.states.State_com_stevesoft_pat;
 import loghub.states.State_gnu_regexp;
 import loghub.states.State_io_thekraken_grok_api;
 import loghub.states.State_java_util_regex;
 import loghub.states.State_jregex;
+import loghub.states.State_org_apache_oro_text_regex;
+import loghub.states.State_org_apache_regexp;
 import loghub.states.State_org_apache_xerces_impl_xpath_regex;
 import loghub.states.State_org_joni;
 import loghub.states.State_org_joni_ascii;
@@ -38,10 +41,10 @@ public class RegexPerf {
     //    }
 
     // Junit success, but bench fails
-    //    @Benchmark
-    //    public void com_stevesoft_patRegex(State_com_stevesoft_pat state) {
-    //        state.run();
-    //    }
+    @Benchmark
+    public void com_stevesoft_patRegex(State_com_stevesoft_pat state) {
+        state.run();
+    }
 
     //    @Benchmark
     //    public void dk_brics_automaton_RegExp(State_dk_brics_automaton state) {
@@ -68,7 +71,7 @@ public class RegexPerf {
         state.runbig();
     }
 
-   // @Benchmark
+    @Benchmark
     public void jregex(State_jregex state) {
         state.run();
     }
@@ -93,19 +96,24 @@ public class RegexPerf {
     //      state.run();
     //  }
 
-    //    @Benchmark
-    //    public void org_apache_oro_text_regex(State_org_apache_oro_text_regex state) {
-    //        state.run();
-    //    }
+    @Benchmark
+    public void org_apache_oro_text_regex(State_org_apache_oro_text_regex state) {
+        state.run();
+    }
 
-    //        @Benchmark
-    //        public void org_apache_regexp(State_org_apache_regexp state) {
-    //            state.run();
-    //        }
+    @Benchmark
+    public void org_apache_regexp(State_org_apache_regexp state) {
+        state.run();
+    }
 
     @Benchmark
     public void org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state) {
         state.run();
+    }
+
+    @Benchmark
+    public void big_org_joni_ascii_reuse(State_org_joni_ascii_reuse state) {
+        state.runbig();
     }
 
     @Benchmark
