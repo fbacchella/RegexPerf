@@ -61,7 +61,7 @@ public class StringToBytesTest {
 
     @Test
     public void getBytesCharsetEncoder() throws UnsupportedEncodingException {
-        Assert.assertEquals(33, bytters.getBytesCharsetEncoder().length);
+        Assert.assertEquals(33, bytters.byCharsetEncoder_US_ASCII().length);
     }
 
 }

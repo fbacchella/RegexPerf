@@ -6,6 +6,8 @@ It uses ideas and code from [Java Regular expression library benchmarks](http://
 
 The joni library works on byte[] instead of a String, so I also bench different way to extract that from a String, to get the fastest. But each variation is test with joni to ensure that's it's really usefull.
 
+First a test with the latest Java 8 (1.8.0_152)
+
 ```
 $ lscpu 
 CPU(s):                8
@@ -20,30 +22,67 @@ CPU MHz:               2593.748
 # Measurement: 10 iterations, 30 s each
 # Timeout: 88 s per iteration
 # Threads: 3 threads, will synchronize iterations
-# Benchmark mode: Throughput, ops/time
 
-Benchmark                                                        Mode  Cnt          Score         Error  Units
-RegexPerf.big_io_thekraken_grok_api                             thrpt   10        201.506 ±       2.345  ops/s
-RegexPerf.big_java_util_regex                                   thrpt   10        207.655 ±       4.442  ops/s
-RegexPerf.big_org_joni_ascii_reuse                              thrpt   10      21110.557 ±     176.040  ops/s
-RegexPerf.gnu_regexp                                            thrpt   10      13129.258 ±     130.504  ops/s
-RegexPerf.io_thekraken_grok_api                                 thrpt   10      45491.230 ±     935.587  ops/s
-RegexPerf.java_util_regex                                       thrpt   10      51120.312 ±     958.495  ops/s
-RegexPerf.jregex                                                thrpt   10     227759.280 ±    2263.130  ops/s
-RegexPerf.org_apache_xerces_impl_xpath_regex_RegularExpression  thrpt   10      19649.718 ±     105.918  ops/s
-RegexPerf.org_joni                                              thrpt   10     147986.472 ±    3078.977  ops/s
-RegexPerf.org_joni_ascii                                        thrpt   10     157050.311 ±   15775.004  ops/s
-RegexPerf.org_joni_ascii_reuse                                  thrpt   10     158587.976 ±    8951.768  ops/s
-RegexPerf.org_joni_ascii_unsafe                                 thrpt   10     154033.393 ±   20010.222  ops/s
-RegexPerf.org_joni_utf16le                                      thrpt   10     130347.658 ±   13275.599  ops/s
-StringToBytes.byCharset_ISO_8859_1                              thrpt   10  111770633.248 ± 1339379.280  ops/s
-StringToBytes.byCharset_UTF_16                                  thrpt   10   14152678.130 ±  288494.561  ops/s
-StringToBytes.byCharset_UTF_8                                   thrpt   10   38172801.641 ±  318586.966  ops/s
-StringToBytes.byName_ISO_8859_1                                 thrpt   10   72082976.396 ± 1040823.519  ops/s
-StringToBytes.byName_UTF_16                                     thrpt   10    4956898.867 ±  180506.018  ops/s
-StringToBytes.byName_UTF_8                                      thrpt   10   42687957.015 ± 1056687.425  ops/s
-StringToBytes.getBytesAscii                                     thrpt   10   68885513.169 ±  420090.968  ops/s
-StringToBytes.getBytesAsciiReuse                                thrpt   10   90351291.515 ±  365798.170  ops/s
-StringToBytes.getBytesAsciiUnsafe                               thrpt   10  130430867.984 ± 1423620.406  ops/s
-StringToBytes.getBytesUTF16LE                                   thrpt   10   49372595.953 ±  217561.354  ops/s
+Benchmark                                                       Mode  Cnt      Score    Error  Units
+RegexPerf.big_io_thekraken_grok_api                             avgt   10  14566.463 ± 79.139  us/op
+RegexPerf.big_java_util_regex                                   avgt   10  14222.734 ± 49.692  us/op
+RegexPerf.big_org_joni_ascii_reuse                              avgt   10    132.353 ±  0.903  us/op
+RegexPerf.gnu_regexp                                            avgt   10    220.395 ±  2.042  us/op
+RegexPerf.io_thekraken_grok_api                                 avgt   10     64.270 ±  0.634  us/op
+RegexPerf.java_util_regex                                       avgt   10     58.757 ±  0.391  us/op
+RegexPerf.jregex                                                avgt   10     14.245 ±  0.068  us/op
+RegexPerf.org_apache_xerces_impl_xpath_regex_RegularExpression  avgt   10    150.605 ±  1.434  us/op
+RegexPerf.org_joni                                              avgt   10     22.776 ±  4.679  us/op
+RegexPerf.org_joni_ascii                                        avgt   10     19.061 ±  2.007  us/op
+RegexPerf.org_joni_ascii_reuse                                  avgt   10     18.694 ±  1.692  us/op
+RegexPerf.org_joni_ascii_unsafe                                 avgt   10     18.225 ±  1.214  us/op
+StringToBytes.byCharsetEncoder_US_ASCII                         avgt   10    266.363 ± 16.720  ns/op
+StringToBytes.byCharset_US_ASCII                                avgt   10     39.574 ±  0.181  ns/op
+StringToBytes.byCharset_UTF_16                                  avgt   10    328.958 ±  5.447  ns/op
+StringToBytes.byCharset_UTF_8                                   avgt   10     78.423 ±  0.396  ns/op
+StringToBytes.byName_US_ASCII                                   avgt   10     61.946 ±  0.555  ns/op
+StringToBytes.byName_UTF_16                                     avgt   10    131.655 ±  1.696  ns/op
+StringToBytes.byName_UTF_8                                      avgt   10     69.874 ±  0.636  ns/op
+StringToBytes.getBytesAscii                                     avgt   10     43.377 ±  0.213  ns/op
+StringToBytes.getBytesAsciiReuse                                avgt   10     33.220 ±  0.229  ns/op
+StringToBytes.getBytesAsciiUnsafe                               avgt   10     22.972 ±  0.225  ns/op
+StringToBytes.getBytesUTF16LE                                   avgt   10     60.789 ±  0.584  ns/op
 ```
+
+And one with 9 (9.0.1)
+
+```
+# JMH version: 1.19
+# VM version: JDK 9.0.1, VM 9.0.1+11
+# VM invoker: /usr/java/jdk-9.0.1/bin/java
+# VM options: <none>
+# Warmup: 5 iterations, 1 s each
+# Measurement: 10 iterations, 30 s each
+# Timeout: 88 s per iteration
+# Threads: 3 threads, will synchronize iterations
+
+Benchmark                                                       Mode  Cnt     Score     Error  Units
+RegexPerf.big_io_thekraken_grok_api                             avgt   10  9247.838 ± 172.971  us/op
+RegexPerf.big_java_util_regex                                   avgt   10  9255.848 ± 249.751  us/op
+RegexPerf.big_org_joni_ascii_reuse                              avgt   10   128.855 ±   1.509  us/op
+RegexPerf.gnu_regexp                                            avgt   10   171.659 ±   2.666  us/op
+RegexPerf.io_thekraken_grok_api                                 avgt   10    44.095 ±   0.957  us/op
+RegexPerf.java_util_regex                                       avgt   10    37.995 ±   0.756  us/op
+RegexPerf.jregex                                                avgt   10    13.634 ±   0.187  us/op
+RegexPerf.org_apache_xerces_impl_xpath_regex_RegularExpression  avgt   10   121.135 ±   1.173  us/op
+RegexPerf.org_joni                                              avgt   10    23.943 ±   0.524  us/op
+RegexPerf.org_joni_ascii                                        avgt   10    20.653 ±   1.148  us/op
+RegexPerf.org_joni_ascii_reuse                                  avgt   10    21.571 ±   0.850  us/op
+StringToBytes.byCharsetEncoder_US_ASCII                         avgt   10    90.954 ±   1.782  ns/op
+StringToBytes.byCharset_US_ASCII                                avgt   10    29.405 ±   0.280  ns/op
+StringToBytes.byCharset_UTF_16                                  avgt   10   379.761 ±   4.262  ns/op
+StringToBytes.byCharset_UTF_8                                   avgt   10    50.512 ±   0.591  ns/op
+StringToBytes.byName_US_ASCII                                   avgt   10    36.610 ±   0.487  ns/op
+StringToBytes.byName_UTF_16                                     avgt   10   120.022 ±   1.346  ns/op
+StringToBytes.byName_UTF_8                                      avgt   10    58.353 ±   0.909  ns/op
+StringToBytes.getBytesAscii                                     avgt   10    40.438 ±   0.412  ns/op
+StringToBytes.getBytesAsciiReuse                                avgt   10    32.157 ±   0.302  ns/op
+StringToBytes.getBytesUTF16LE                                   avgt   10    59.463 ±   0.724  ns/op
+```
+
+The unsafe benchmarks are gone, as the internal structure of String changed in java 9.

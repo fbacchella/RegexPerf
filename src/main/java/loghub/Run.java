@@ -1,7 +1,6 @@
 package loghub;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.runner.RunnerException;
@@ -38,8 +37,8 @@ public class Run {
 
         ChainedOptionsBuilder builder = new OptionsBuilder()
                 // Set the following options as needed
-                .mode (Mode.Throughput)
-                .timeUnit(TimeUnit.SECONDS)
+                .mode (Mode.AverageTime)
+                //.timeUnit(TimeUnit.NANOSECONDS)
                 .warmupTime(TimeValue.seconds(warmupTime))
                 .warmupIterations(warmupIterations)
                 .measurementTime(TimeValue.seconds(measurementTime))

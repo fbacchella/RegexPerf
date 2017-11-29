@@ -1,7 +1,10 @@
 
 package loghub;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 
 import loghub.states.State_com_stevesoft_pat;
 import loghub.states.State_gnu_regexp;
@@ -23,6 +26,7 @@ import loghub.states.State_org_joni_utf16le;
  * @author fa4
  *
  */
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class RegexPerf {
 
     //    @Benchmark
