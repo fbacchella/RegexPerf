@@ -4,7 +4,9 @@ This project uses [Code Tools: jmh](http://openjdk.java.net/projects/code-tools/
 
 It uses ideas and code from [Java Regular expression library benchmarks](http://tusker.org/regex/regex_benchmark.html) and [Java regular expression library benchmarks – 2015](https://www.javaadvent.com/2015/12/java-regular-expression-library-benchmarks-2015.html). It adds some new libraries.
 
-The joni library works on byte[] instead of a String, so I also bench different way to extract that from a String, to get the fastest. But each variation is test with joni to ensure that's it's really usefull.
+The [joni](https://github.com/jruby/jon)i library works on byte[] instead of a String, so I also bench different way to extract that from a String, to get the fastest. But each variation is test with joni to ensure that's it's really usefull.
+
+[Grok](RegexPerf.org_joni_utf16le) is a thick wrapper around java's regex, inspired by logstash
 
 First a test with the latest Java 8 (1.8.0_152)
 
