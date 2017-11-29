@@ -6,7 +6,16 @@ It uses ideas and code from [Java Regular expression library benchmarks](http://
 
 The [joni](https://github.com/jruby/jon)i library works on byte[] instead of a String, so I also bench different way to extract that from a String, to get the fastest. But each variation is test with joni to ensure that's it's really usefull.
 
-[Grok](RegexPerf.org_joni_utf16le) is a thick wrapper around java's regex, inspired by logstash
+[Grok](RegexPerf.org_joni_utf16le) is a thick wrapper around java's regex, inspired by logstash.
+
+To run it:
+```
+mvn clean package site && java -jar target/regexperf.jar
+``
+
+Options `-f` allows to make a quick run, to check code. Benchmark's name to run can be given at the commande line.
+
+The maven reports include a version check, to ensure that all the regexes uses the latest versions.
 
 First a test with the latest Java 8 (1.8.0_152)
 
