@@ -11,7 +11,7 @@ The [joni](https://github.com/jruby/jon)i library works on byte[] instead of a S
 To run it:
 ```
 mvn clean package site && java -jar target/regexperf.jar
-``
+```
 
 Options `-f` allows to make a quick run, to check code. Benchmark's name to run can be given at the commande line.
 
