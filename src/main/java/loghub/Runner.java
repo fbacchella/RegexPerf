@@ -49,7 +49,7 @@ public abstract class Runner<P> {
             "{1:" + Strings.repeat("this is some more text - and some more and some more and even more ", 10) + "-}\n",
             "[2020-07-20 09:35:41,099] [INFO ] [1637163705@thread-name-3284] [loghub.dummy.class] A found String."
     };
-    
+
     private final P[] compiledPatterns;
 
     private static boolean[][] expectedMatch = new boolean[7][9];
@@ -131,25 +131,24 @@ public abstract class Runner<P> {
     protected abstract String[] find(P pattern, String searched);
 
     public void run(Blackhole blackHole) {
-        for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            for (int strnum = 0; strnum < strings.length - 3; strnum++) {
+        for (int patnum = 0; patnum < 4; patnum++) {
+            for (int strnum = 0; strnum < 5; strnum++) {
                 match(patnum, strnum, blackHole);
             }
         }
     }
 
     public void runbig(Blackhole blackHole) {
-        for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            int strnum = strings.length - 2;
-            match(patnum, strnum, blackHole);
-        }
+        int patnum = 5;
+        int strnum = 7;
+        match(patnum, strnum, blackHole);
     }
 
     public void runcatastroph(Blackhole blackHole) {
-        for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            int strnum = strings.length - 3;
+        int patnum = 4;
+        IntStream.of(5, 6).forEach(strnum -> {
             match(patnum, strnum, blackHole);
-        }
+        });
     }
 
     public void runlog(Blackhole blackHole) {
