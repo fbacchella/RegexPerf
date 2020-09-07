@@ -11,7 +11,7 @@ import io.thekraken.grok.api.exception.GrokException;
 import loghub.Runner;
 
 @State(Scope.Benchmark)
-public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Grok> {
+public class State_io_thekraken_grok_api extends Runner<Grok> {
 
     @Override
     protected Grok[] getPatternStorage(int size) {
@@ -21,7 +21,12 @@ public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Gr
     @Override
     protected Grok generate(String i) {
         try {
-            io.thekraken.grok.api.Grok grok = new io.thekraken.grok.api.Grok();
+            Grok grok = new Grok();
+            grok.addPattern("TIME", "\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?");
+            grok.addPattern("SEVERITY", "(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL");
+            grok.addPattern("THREAD", "([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?");
+            grok.addPattern("LOGGER", "[\\w\\d\\.\\-_]*");
+            grok.addPattern("MESSAGE", ".*");
             grok.compile(i, false);
             return grok;
         } catch (GrokException e) {
@@ -33,8 +38,6 @@ public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Gr
     protected boolean match(Grok pattern, String searched) {
         Match gm = pattern.match(searched);
         gm.captures();
-        @SuppressWarnings("unused")
-        Map<String, Object> content = gm.toMap();
         return gm.getMatch() != null;
     }
 
@@ -44,6 +47,15 @@ public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Gr
         gm.captures();
         Map<String, Object> content = gm.toMap();
         return content.entrySet().stream().map(e -> e.getValue().toString()).toArray(String[]::new);
+    }
+
+    @Override
+    protected String translate(int pattnum) {
+        if (pattnum == 6) {
+            return "\\[%{TIME:time}\\]\\s+\\[\\s?%{SEVERITY:severity}\\s?\\]\\s+\\[%{THREAD:thread}\\]\\s+\\[%{LOGGER:logger}\\]\\s%{MESSAGE:message}";
+        } else {
+            return super.translate(pattnum);
+        }
     }
 
 }

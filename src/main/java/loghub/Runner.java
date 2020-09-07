@@ -163,9 +163,9 @@ public abstract class Runner<P> {
 
     private void compileAndStore(int pattnum) {
         try {
-            compiledPatterns[pattnum] = generate(patterns[pattnum]);
+            compiledPatterns[pattnum] = generate(translate(pattnum));
         } catch (Exception e) {
-            // Invalid pattern, skip
+            // assert false : patterns[pattnum] + " failed: "  + e.getMessage();
         }
     }
 
@@ -183,6 +183,10 @@ public abstract class Runner<P> {
         String[] b = find(pattern, strings[strnum]);
         blackHole.consume(b);
         assert b != null : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], Arrays.toString(b), expectedMatch[patnum][strnum]);
+    }
+    
+    protected String translate(int pattnum) {
+        return patterns[pattnum];
     }
 
 }

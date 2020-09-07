@@ -98,7 +98,7 @@ public class RunnerTest {
 
     @Test
     public void jregex() {
-        run(new State_jregex(), false, false);
+        run(new State_jregex(), false, true);
     }
 
     @Test(expected = AssertionError.class)
