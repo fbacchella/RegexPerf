@@ -24,16 +24,25 @@ public class Run {
         int warmupIterations;
         long measurementTime;
         int measurementIterations;
+        int fork;
+        int threads;
+        boolean shouldFailOnError;
         if(options.has("f")) {
             warmupTime = 1;
             warmupIterations = 1;
             measurementTime = 1;
             measurementIterations = 1;
+            fork = 1;
+            threads = 2;
+            shouldFailOnError = false;
         } else {
             warmupTime = 1;
             warmupIterations = 5;
             measurementTime = 30;
             measurementIterations = 10;
+            fork = 2;
+            threads = 4;
+            shouldFailOnError = true;
         }
         ResultFormatType format;
         String resultFile = null;
@@ -54,27 +63,17 @@ public class Run {
 
         ChainedOptionsBuilder builder = new OptionsBuilder()
                         // Set the following options as needed
-                        .mode (Mode.AverageTime)
+                        .mode(Mode.AverageTime)
                         //.timeUnit(TimeUnit.NANOSECONDS)
                         .warmupTime(TimeValue.seconds(warmupTime))
                         .warmupIterations(warmupIterations)
                         .measurementTime(TimeValue.seconds(measurementTime))
                         .measurementIterations(measurementIterations)
-                        .threads(3)
-                        .forks(2)
-                        .shouldFailOnError(true)
+                        .threads(threads)
+                        .forks(fork)
+                        .shouldFailOnError(shouldFailOnError)
                         .shouldDoGC(false)
                         .timeout(TimeValue.seconds(11 * 6 + 2 * 11))
-                        .exclude("com_basistech_tclre")
-                        .exclude("com_google_re2j")
-                        .exclude("com_stevesoft_patRegex")
-                        .exclude("jcom_karneim_util_collection_regex")
-                        .exclude("kmy_regex_util")
-                        .exclude("monq_jfa")
-                        .exclude("org_apache_oro_text_regex")
-                        .exclude("org_apache_regexp")
-                        .exclude("org_apache_xerces_impl_xpath_regex_RegularExpression")
-                        .exclude("org_apache_xerces_impl_xpath_regex_RegularExpression")
                         ;
 
         if (format != null) {
@@ -99,7 +98,6 @@ public class Run {
         } catch (ClassNotFoundException e) {
             builder.exclude("gnu_rex");
         }
-
 
         List<?> otheroptions = options.nonOptionArguments();
         if (otheroptions.size() != 0) {
