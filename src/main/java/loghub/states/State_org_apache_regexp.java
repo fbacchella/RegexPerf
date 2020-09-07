@@ -13,6 +13,7 @@ import loghub.Runner;
  */
 @State(Scope.Benchmark)
 public class State_org_apache_regexp extends Runner<org.apache.regexp.RE>{
+
     @Override
     protected RE generate(String i) {
         return new org.apache.regexp.RE(i);
@@ -22,4 +23,5 @@ public class State_org_apache_regexp extends Runner<org.apache.regexp.RE>{
     protected boolean match(RE pattern, String searched) {
         return pattern.match(searched);
     }
+
 }

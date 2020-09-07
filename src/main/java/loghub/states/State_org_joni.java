@@ -1,5 +1,7 @@
 package loghub.states;
 
+import java.nio.charset.StandardCharsets;
+
 import org.jcodings.specific.UTF8Encoding;
 import org.joni.Matcher;
 import org.joni.Option;
@@ -14,7 +16,7 @@ public class State_org_joni extends Runner<org.joni.Regex> {
 
     @Override
     protected Regex generate(String i) {
-        byte[] pattern = i.getBytes();
+        byte[] pattern = i.getBytes(StandardCharsets.UTF_8);
         return new Regex(pattern, 0, pattern.length, Option.NONE, UTF8Encoding.INSTANCE);
     }
 

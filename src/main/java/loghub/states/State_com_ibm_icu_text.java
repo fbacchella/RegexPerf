@@ -12,7 +12,7 @@ public class State_com_ibm_icu_text extends Runner<com.ibm.icu.text.UnicodeSet> 
 
     @Override
     protected UnicodeSet generate(String i) {
-        return new com.ibm.icu.text.UnicodeSet(i);
+        return new com.ibm.icu.text.UnicodeSet( "[" + i + "]");
     }
 
     @Override

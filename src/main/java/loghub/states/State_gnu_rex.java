@@ -3,20 +3,25 @@ package loghub.states;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
+import gnu.rex.RegExprSyntaxException;
+import gnu.rex.Rex;
 import loghub.Runner;
 
 @State(Scope.Benchmark)
-public class State_gnu_rex<P> extends Runner<P/*gnu.rex.Rex*/> {
+public class State_gnu_rex extends Runner<Rex> {
 
     @Override
-    protected P generate(String i) {
-        throw new AssertionError("Library not found");
+    protected Rex generate(String i) {
+        try {
+            return Rex.build(i);
+        } catch (RegExprSyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    protected boolean match(P pattern, String searched) {
-        throw new AssertionError("Library not found");
+    protected boolean match(Rex pattern, String searched) {
+        return pattern.match(searched.toCharArray(), 0, searched.length()) != null;
     }
-
 
 }

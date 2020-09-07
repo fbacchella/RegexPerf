@@ -15,6 +15,7 @@ import loghub.Runner;
  */
 @State(Scope.Benchmark)
 public class State_com_stevesoft_pat extends Runner<com.stevesoft.pat.Regex>{
+
     @Override
     protected com.stevesoft.pat.Regex generate(String i) {
         try {
@@ -31,4 +32,5 @@ public class State_com_stevesoft_pat extends Runner<com.stevesoft.pat.Regex>{
     protected boolean match(com.stevesoft.pat.Regex pattern, String searched) {
         return pattern.search(searched);
     }
+
 }

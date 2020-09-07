@@ -13,7 +13,6 @@ import loghub.UnsafeUtils;
 @State(Scope.Benchmark)
 public class State_org_joni_ascii_unsafe extends Runner<org.joni.Regex> {
 
-
     private static byte[] getBytesAscii(String searched) {
         final int length = searched.length();
         final char buffer[] = UnsafeUtils.toCharArray(searched);

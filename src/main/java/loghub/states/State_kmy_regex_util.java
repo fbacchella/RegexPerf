@@ -12,17 +12,16 @@ import loghub.Runner;
  * @param <P>
  */
 @State(Scope.Benchmark)
-public class State_kmy_regex_util<P> extends Runner<P/*kmy.regex.util.Regex*/> {
+public class State_kmy_regex_util extends Runner<Object/*kmy.regex.util.Regex*/> {
 
     @Override
-    protected P generate(String i) {
+    protected Object generate(String i) {
         throw new AssertionError("Not mavenized");
     }
 
     @Override
-    protected boolean match(P pattern, String searched) {
+    protected boolean match(Object pattern, String searched) {
         throw new AssertionError("Not mavenized");
     }
-
 
 }
