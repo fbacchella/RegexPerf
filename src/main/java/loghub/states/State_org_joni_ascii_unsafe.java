@@ -1,9 +1,12 @@
 package loghub.states;
 
+import java.nio.charset.StandardCharsets;
+
 import org.jcodings.specific.ASCIIEncoding;
 import org.joni.Matcher;
 import org.joni.Option;
 import org.joni.Regex;
+import org.joni.Region;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
@@ -39,6 +42,26 @@ public class State_org_joni_ascii_unsafe extends Runner<org.joni.Regex> {
         byte[] str = getBytesAscii(searched);
         Matcher matcher = pattern.matcher(str);
         return matcher.search(0, str.length, Option.DEFAULT) != -1;
+    }
+
+    @Override
+    protected String[] find(Regex pattern, String searched) {
+        byte[] str = getBytesAscii(searched);
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.search(0, str.length, Option.DEFAULT) != -1) {
+            Region region = matcher.getEagerRegion();
+            String[] found = new String[region.numRegs];
+            for (int i = 0 ; i < region.numRegs ; i++) {
+                int begin = region.beg[i];
+                int end = region.end[i];
+                if (begin != -1 && end != -1) {
+                    found[i] = new String(str, begin, end - begin, StandardCharsets.US_ASCII);
+                }
+            }
+            return found;
+        } else {
+            return null;
+        }
     }
 
 }

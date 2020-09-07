@@ -25,4 +25,10 @@ public class State_com_google_code_regexp extends Runner<Pattern> {
         return new Pattern[size];
     }
 
+    @Override
+    protected String[] find(Pattern pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

@@ -31,4 +31,10 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
         return pattern.run(searched);
     }
 
+    @Override
+    protected String[] find(RunAutomaton pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

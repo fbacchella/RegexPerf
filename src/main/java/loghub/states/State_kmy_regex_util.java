@@ -29,4 +29,10 @@ public class State_kmy_regex_util extends Runner<Object> {
         throw new AssertionError("Not mavenized");
     }
 
+    @Override
+    protected String[] find(Object pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

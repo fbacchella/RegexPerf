@@ -32,4 +32,10 @@ public class State_com_basistech_tclre extends Runner<RePattern> {
         return pattern.matcher(searched).matches();
     }
 
+    @Override
+    protected String[] find(RePattern pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

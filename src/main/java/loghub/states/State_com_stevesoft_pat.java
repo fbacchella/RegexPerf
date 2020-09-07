@@ -38,4 +38,10 @@ public class State_com_stevesoft_pat extends Runner<Regex>{
         return pattern.search(searched);
     }
 
+    @Override
+    protected String[] find(Regex pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

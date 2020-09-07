@@ -40,4 +40,10 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
         return perl5Matcher.matches(searched, pattern);
     }
 
+    @Override
+    protected String[] find(Pattern pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

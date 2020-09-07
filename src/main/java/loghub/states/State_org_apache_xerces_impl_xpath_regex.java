@@ -24,4 +24,10 @@ public class State_org_apache_xerces_impl_xpath_regex extends Runner<RegularExpr
         return pattern.matches(searched);
     }
 
+    @Override
+    protected String[] find(RegularExpression pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

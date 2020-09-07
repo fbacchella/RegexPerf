@@ -29,4 +29,10 @@ public class State_org_apache_regexp extends Runner<org.apache.regexp.RE>{
         return pattern.match(searched);
     }
 
+    @Override
+    protected String[] find(RE pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

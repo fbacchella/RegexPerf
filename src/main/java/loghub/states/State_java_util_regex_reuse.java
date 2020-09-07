@@ -32,4 +32,18 @@ public class State_java_util_regex_reuse extends Runner<ThreadLocal<Matcher>>{
         return pattern.get().reset(searched).find();
     }
 
+    @Override
+    protected String[] find(ThreadLocal<Matcher> pattern, String searched) {
+        Matcher m = pattern.get().reset(searched);
+        if (m.find()) {
+            String[] found = new String[m.groupCount()];
+            for (int i = 0; i < found.length; i++) {
+                found[i] = m.group(i);
+            }
+            return found;
+        } else {
+            return null;
+        }
+    }
+
 }

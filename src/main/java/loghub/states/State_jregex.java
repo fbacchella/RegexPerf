@@ -29,4 +29,10 @@ public class State_jregex extends Runner<Pattern> {
         return pattern.matcher(searched).matches();
     }
 
+    @Override
+    protected String[] find(Pattern pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

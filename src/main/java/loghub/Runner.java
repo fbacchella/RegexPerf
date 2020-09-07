@@ -128,6 +128,7 @@ public abstract class Runner<P> {
     protected abstract P[] getPatternStorage(int size);
     protected abstract P generate(String i);
     protected abstract boolean match(P pattern, String searched);
+    protected abstract String[] find(P pattern, String searched);
 
     public void run(Blackhole blackHole) {
         for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
@@ -152,10 +153,7 @@ public abstract class Runner<P> {
     }
 
     public void runlog(Blackhole blackHole) {
-        for (int patnum = 0; patnum < patterns.length; patnum++) {
-            int strnum = strings.length - 1;
-            match(patnum, strnum, blackHole);
-        }
+        find(patterns.length -1 , strings.length - 1, blackHole);
     }
 
     @Setup
@@ -177,6 +175,14 @@ public abstract class Runner<P> {
         boolean b = match(pattern, strings[strnum]);
         blackHole.consume(b);
         assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+    }
+
+    private void find(int patnum, int strnum, Blackhole blackHole) {
+        P pattern = compiledPatterns[patnum];
+        assert pattern != null : patterns[patnum] + " not found";
+        String[] b = find(pattern, strings[strnum]);
+        blackHole.consume(b);
+        assert b != null : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
     }
 
 }

@@ -23,4 +23,10 @@ public class State_com_ibm_regex extends Runner<Object> {
         throw new AssertionError("Library not found");
     }
 
+    @Override
+    protected String[] find(Object pattern, String searched) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

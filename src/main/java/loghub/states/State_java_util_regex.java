@@ -1,5 +1,6 @@
 package loghub.states;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openjdk.jmh.annotations.Scope;
@@ -28,6 +29,20 @@ public class State_java_util_regex extends Runner<Pattern>{
     @Override
     protected boolean match(Pattern pattern, String searched) {
         return pattern.matcher(searched).find();
+    }
+
+    @Override
+    protected String[] find(Pattern pattern, String searched) {
+        Matcher m = pattern.matcher(searched);
+        if (m.find()) {
+            String[] found = new String[m.groupCount()];
+            for (int i = 0; i < found.length; i++) {
+                found[i] = m.group(i);
+            }
+            return found;
+        } else {
+            return null;
+        }
     }
 
 }

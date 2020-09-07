@@ -29,4 +29,9 @@ public class State_gnu_regexp extends Runner<RE> {
         return pattern.isMatch(searched);
     }
 
+    @Override
+    protected String[] find(RE pattern, String searched) {
+        return null;
+    }
+
 }

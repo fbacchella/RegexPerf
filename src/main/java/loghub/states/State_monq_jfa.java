@@ -29,5 +29,9 @@ public class State_monq_jfa extends Runner<Object> {
         throw new AssertionError("Not Mavenized");
     }
 
+    @Override
+    protected String[] find(Object pattern, String searched) {
+        return null;
+    }
 
 }

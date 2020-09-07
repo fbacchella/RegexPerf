@@ -38,4 +38,12 @@ public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Gr
         return gm.getMatch() != null;
     }
 
+    @Override
+    protected String[] find(Grok pattern, String searched) {
+        Match gm = pattern.match(searched);
+        gm.captures();
+        Map<String, Object> content = gm.toMap();
+        return content.entrySet().stream().map(e -> e.getValue().toString()).toArray(String[]::new);
+    }
+
 }
