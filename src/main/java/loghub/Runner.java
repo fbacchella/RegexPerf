@@ -19,6 +19,7 @@
  */
 package loghub;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import org.openjdk.jmh.annotations.Setup;
@@ -181,7 +182,7 @@ public abstract class Runner<P> {
         assert pattern != null : patterns[patnum] + " not found";
         String[] b = find(pattern, strings[strnum]);
         blackHole.consume(b);
-        assert b != null : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+        assert b != null : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], Arrays.toString(b), expectedMatch[patnum][strnum]);
     }
 
 }

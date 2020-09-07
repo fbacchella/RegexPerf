@@ -153,7 +153,7 @@ public class RunnerTest {
 
     @Test
     public void com_google_code_regexp() {
-        run(new State_com_google_code_regexp(), true, true);
+        run(new State_com_google_code_regexp(), true, false);
     }
 
 }
