@@ -12,6 +12,11 @@ import loghub.Runner;
 @State(Scope.Benchmark)
 public class State_org_joni_ascii extends Runner<org.joni.Regex> {
 
+    @Override
+    protected Regex[] getPatternStorage(int size) {
+        return new Regex[size];
+    }
+
     private static byte[] getBytesAscii(String searched) {
         int length = searched.length();
         char[] buffer = new char[length];

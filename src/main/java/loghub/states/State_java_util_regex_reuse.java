@@ -16,6 +16,12 @@ import loghub.Runner;
 @State(Scope.Benchmark)
 public class State_java_util_regex_reuse extends Runner<ThreadLocal<Matcher>>{
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected ThreadLocal<Matcher>[] getPatternStorage(int size) {
+        return (ThreadLocal<Matcher>[]) new ThreadLocal<?>[size];
+    }
+
     @Override
     protected ThreadLocal<Matcher> generate(String i) {
         return ThreadLocal.withInitial(() -> Pattern.compile(i).matcher(""));

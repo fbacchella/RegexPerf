@@ -12,7 +12,12 @@ import loghub.Runner;
  * @param <P>
  */
 @State(Scope.Benchmark)
-public class State_kmy_regex_util extends Runner<Object/*kmy.regex.util.Regex*/> {
+public class State_kmy_regex_util extends Runner<Object> {
+
+    @Override
+    protected Object[] getPatternStorage(int size) {
+        return new Object[size];
+    }
 
     @Override
     protected Object generate(String i) {

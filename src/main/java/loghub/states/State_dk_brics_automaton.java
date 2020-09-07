@@ -16,6 +16,11 @@ import loghub.Runner;
 public class State_dk_brics_automaton extends Runner<RunAutomaton> {
 
     @Override
+    protected RunAutomaton[] getPatternStorage(int size) {
+        return new RunAutomaton[size];
+    }
+
+    @Override
     protected RunAutomaton generate(String i) {
         RegExp r = new RegExp(i);
         return new RunAutomaton(r.toAutomaton());

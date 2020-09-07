@@ -11,6 +11,11 @@ import loghub.Runner;
 public class State_gnu_rex extends Runner<Rex> {
 
     @Override
+    protected Rex[] getPatternStorage(int size) {
+        return new Rex[size];
+    }
+
+    @Override
     protected Rex generate(String i) {
         try {
             return Rex.build(i);

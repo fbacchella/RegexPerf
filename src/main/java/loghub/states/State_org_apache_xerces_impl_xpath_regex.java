@@ -10,6 +10,11 @@ import loghub.Runner;
 public class State_org_apache_xerces_impl_xpath_regex extends Runner<RegularExpression> {
 
     @Override
+    protected RegularExpression[] getPatternStorage(int size) {
+        return new RegularExpression[size];
+    }
+
+    @Override
     protected RegularExpression generate(String i) {
         return new RegularExpression(i);
     }

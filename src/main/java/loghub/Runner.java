@@ -19,10 +19,7 @@
  */
 package loghub;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.infra.Blackhole;
@@ -52,6 +49,8 @@ public abstract class Runner<P> {
             "{1:" + Strings.repeat("this is some more text - and some more and some more and even more ", 10) + "-}\n",
             "[2020-07-20 09:35:41,099] [INFO ] [1637163705@thread-name-3284] [loghub.dummy.class] A found String."
     };
+    
+    private final P[] compiledPatterns;
 
     private static boolean[][] expectedMatch = new boolean[7][9];
 
@@ -122,62 +121,62 @@ public abstract class Runner<P> {
         expectedMatch[6][8] = true;
     }
 
-    private final Map<String, P> patternsMap = new HashMap<>(patterns.length);
+    protected Runner() {
+        compiledPatterns = getPatternStorage(7);
+    }
 
+    protected abstract P[] getPatternStorage(int size);
     protected abstract P generate(String i);
     protected abstract boolean match(P pattern, String searched);
 
     public void run(Blackhole blackHole) {
         for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            P pattern = patternsMap.get(patterns[patnum]);
-            assert pattern != null : patterns[patnum] + " not found";
             for (int strnum = 0; strnum < strings.length - 3; strnum++) {
-                boolean b = match(pattern, strings[strnum]);
-                blackHole.consume(b);
-                assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+                match(patnum, strnum, blackHole);
             }
         }
     }
 
     public void runbig(Blackhole blackHole) {
         for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            P pattern = patternsMap.get(patterns[patnum]);
             int strnum = strings.length - 2;
-            boolean b = match(pattern, strings[strnum]);
-            blackHole.consume(b);
-            assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+            match(patnum, strnum, blackHole);
         }
     }
 
     public void runcatastroph(Blackhole blackHole) {
         for (int patnum = 0; patnum < patterns.length - 1; patnum++) {
-            P pattern = patternsMap.get(patterns[patnum]);
             int strnum = strings.length - 3;
-            boolean b = match(pattern, strings[strnum]);
-            blackHole.consume(b);
-            assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+            match(patnum, strnum, blackHole);
         }
     }
 
     public void runlog(Blackhole blackHole) {
         for (int patnum = 0; patnum < patterns.length; patnum++) {
-            P pattern = patternsMap.get(patterns[patnum]);
             int strnum = strings.length - 1;
-            boolean b = match(pattern, strings[strnum]);
-            blackHole.consume(b);
-            assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+            match(patnum, strnum, blackHole);
         }
     }
 
     @Setup
     public void prepare() {
-        Arrays.stream(patterns).forEach( i -> {
-            try {
-                Optional.ofNullable(generate(i)).ifPresent(p -> patternsMap.put(i, p));
-            } catch (Exception e) {
-                // System.out.format("%s: %s -> %s\n", getClass().getName(), i, e.getMessage());
-            }
-        });
+        IntStream.range(0, patterns.length).forEach(this::compileAndStore);
+    }
+
+    private void compileAndStore(int pattnum) {
+        try {
+            compiledPatterns[pattnum] = generate(patterns[pattnum]);
+        } catch (Exception e) {
+            // Invalid pattern, skip
+        }
+    }
+
+    private void match(int patnum, int strnum, Blackhole blackHole) {
+        P pattern = compiledPatterns[patnum];
+        assert pattern != null : patterns[patnum] + " not found";
+        boolean b = match(pattern, strings[strnum]);
+        blackHole.consume(b);
+        assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
     }
 
 }

@@ -25,6 +25,11 @@ public class State_org_joni_ascii_reuse extends Runner<org.joni.Regex> {
     }
 
     @Override
+    protected Regex[] getPatternStorage(int size) {
+        return new Regex[size];
+    }
+
+    @Override
     protected Regex generate(String i) {
         byte[] pattern = getBytesAscii(i);
         return new Regex(pattern, 0, pattern.length, Option.NONE, ASCIIEncoding.INSTANCE);

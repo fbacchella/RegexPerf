@@ -9,6 +9,11 @@ import loghub.Runner;
 public class State_com_ibm_regex extends Runner<Object> {
 
     @Override
+    protected Object[] getPatternStorage(int size) {
+        throw new AssertionError("Library not found");
+    }
+
+    @Override
     protected Object generate(String i) {
         throw new AssertionError("Library not found");
     }

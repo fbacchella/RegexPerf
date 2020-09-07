@@ -15,6 +15,11 @@ import loghub.Runner;
 public class State_com_karneim_util_collection_regex extends Runner<Pattern> {
 
     @Override
+    protected Pattern[] getPatternStorage(int size) {
+        return new Pattern[size];
+    }
+
+    @Override
     protected Pattern generate(String i) {
         return new com.karneim.util.collection.regex.Pattern(i);
     }

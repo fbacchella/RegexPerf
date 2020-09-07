@@ -14,6 +14,11 @@ import com.basistech.tclre.RegexException;
 public class State_com_basistech_tclre extends Runner<RePattern> {
 
     @Override
+    protected RePattern[] getPatternStorage(int size) {
+        return new RePattern[size];
+    }
+
+    @Override
     protected RePattern generate(String i) {
         try {
             return HsrePattern.compile(i, PatternFlags.ADVANCED);

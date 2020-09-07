@@ -15,6 +15,11 @@ import loghub.Runner;
 public class State_monq_jfa extends Runner<Object> {
 
     @Override
+    protected Object[] getPatternStorage(int size) {
+        return new Object[size];
+    }
+
+    @Override
     protected Object generate(String i) {
         throw new AssertionError("Not mavenized");
     }

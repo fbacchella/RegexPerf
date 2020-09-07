@@ -15,6 +15,11 @@ import loghub.Runner;
 public class State_org_apache_regexp extends Runner<org.apache.regexp.RE>{
 
     @Override
+    protected RE[] getPatternStorage(int size) {
+        return new RE[size];
+    }
+
+    @Override
     protected RE generate(String i) {
         return new org.apache.regexp.RE(i);
     }

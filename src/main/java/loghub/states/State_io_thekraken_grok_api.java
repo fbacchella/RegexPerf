@@ -14,6 +14,11 @@ import loghub.Runner;
 public class State_io_thekraken_grok_api extends Runner<io.thekraken.grok.api.Grok> {
 
     @Override
+    protected Grok[] getPatternStorage(int size) {
+        return new Grok[size];
+    }
+
+    @Override
     protected Grok generate(String i) {
         try {
             io.thekraken.grok.api.Grok grok = new io.thekraken.grok.api.Grok();

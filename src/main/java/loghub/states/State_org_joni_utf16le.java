@@ -13,6 +13,11 @@ import loghub.UnsafeUtils;
 @State(Scope.Benchmark)
 public class State_org_joni_utf16le extends Runner<org.joni.Regex> {
 
+    @Override
+    protected Regex[] getPatternStorage(int size) {
+        return new Regex[size];
+    }
+
     private static byte[] getBytesUTF16LE(String searched) {
         int length = searched.length();
         char buffer[] = UnsafeUtils.toCharArray(searched);

@@ -8,7 +8,12 @@ import com.google.re2j.Pattern;
 import loghub.Runner;
 
 @State(Scope.Benchmark)
-public class State_com_google_re2j extends Runner<com.google.re2j.Pattern> {
+public class State_com_google_re2j extends Runner<Pattern> {
+
+    @Override
+    protected Pattern[] getPatternStorage(int size) {
+        return new Pattern[size];
+    }
 
     @Override
     protected Pattern generate(String i) {

@@ -14,12 +14,17 @@ import loghub.Runner;
  *
  */
 @State(Scope.Benchmark)
-public class State_com_stevesoft_pat extends Runner<com.stevesoft.pat.Regex>{
+public class State_com_stevesoft_pat extends Runner<Regex>{
 
     @Override
-    protected com.stevesoft.pat.Regex generate(String i) {
+    protected Regex[] getPatternStorage(int size) {
+        return new Regex[size];
+    }
+
+    @Override
+    protected Regex generate(String i) {
         try {
-            Regex pattern = new com.stevesoft.pat.Regex();
+            Regex pattern = new Regex();
             pattern.compile(i);
             pattern.optimize();
             return pattern;
@@ -29,7 +34,7 @@ public class State_com_stevesoft_pat extends Runner<com.stevesoft.pat.Regex>{
     }
 
     @Override
-    protected boolean match(com.stevesoft.pat.Regex pattern, String searched) {
+    protected boolean match(Regex pattern, String searched) {
         return pattern.search(searched);
     }
 

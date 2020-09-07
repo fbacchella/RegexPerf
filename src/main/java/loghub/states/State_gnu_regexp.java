@@ -11,9 +11,14 @@ import loghub.Runner;
 public class State_gnu_regexp extends Runner<RE> {
 
     @Override
+    protected RE[] getPatternStorage(int size) {
+        return new RE[size];
+    }
+
+    @Override
     protected RE generate(String i) {
         try {
-            return new gnu.regexp.RE(i);
+            return new RE(i);
         } catch (REException e) {
             throw new RuntimeException(e);
         }

@@ -21,6 +21,11 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
     Perl5Matcher perl5Matcher = new org.apache.oro.text.regex.Perl5Matcher();
 
     @Override
+    protected Pattern[] getPatternStorage(int size) {
+        return new Pattern[size];
+    }
+
+    @Override
     protected Pattern generate(String i) {
         try {
             org.apache.oro.text.regex.Pattern regexpr = perl5Compiler.compile(i);

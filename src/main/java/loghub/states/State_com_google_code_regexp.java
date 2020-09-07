@@ -20,4 +20,9 @@ public class State_com_google_code_regexp extends Runner<Pattern> {
         return pattern.matcher(searched).find();
     }
 
+    @Override
+    protected Pattern[] getPatternStorage(int size) {
+        return new Pattern[size];
+    }
+
 }
