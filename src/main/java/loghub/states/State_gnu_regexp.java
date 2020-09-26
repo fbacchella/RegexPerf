@@ -31,7 +31,7 @@ public class State_gnu_regexp extends Runner<RE> {
 
     @Override
     protected String[] find(RE pattern, String searched) {
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

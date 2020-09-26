@@ -17,8 +17,8 @@ import loghub.Runner;
 @State(Scope.Benchmark)
 public class State_org_apache_oro_text_regex extends Runner<Pattern> {
 
-    Perl5Compiler perl5Compiler = new org.apache.oro.text.regex.Perl5Compiler();
-    Perl5Matcher perl5Matcher = new org.apache.oro.text.regex.Perl5Matcher();
+    Perl5Compiler perl5Compiler = new Perl5Compiler();
+    ThreadLocal<Perl5Matcher> perl5Matcher = ThreadLocal.withInitial(Perl5Matcher::new);
 
     @Override
     protected Pattern[] getPatternStorage(int size) {
@@ -28,7 +28,7 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
     @Override
     protected Pattern generate(String i) {
         try {
-            org.apache.oro.text.regex.Pattern regexpr = perl5Compiler.compile(i);
+            Pattern regexpr = perl5Compiler.compile(i);
             return regexpr;
         } catch (MalformedPatternException e) {
             throw new RuntimeException(e);
@@ -37,13 +37,12 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
 
     @Override
     protected boolean match(Pattern pattern, String searched) {
-        return perl5Matcher.matches(searched, pattern);
+        return perl5Matcher.get().matches(searched, pattern);
     }
 
     @Override
     protected String[] find(Pattern pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

@@ -12,27 +12,27 @@ import loghub.Runner;
  *
  */
 @State(Scope.Benchmark)
-public class State_org_apache_regexp extends Runner<org.apache.regexp.RE>{
+public class State_org_apache_regexp extends Runner<ThreadLocal<RE>>{
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected RE[] getPatternStorage(int size) {
-        return new RE[size];
+    protected ThreadLocal<RE>[] getPatternStorage(int size) {
+        return (ThreadLocal<RE>[]) new ThreadLocal<?>[size];
     }
 
     @Override
-    protected RE generate(String i) {
-        return new org.apache.regexp.RE(i);
+    protected ThreadLocal<RE> generate(String i) {
+        return ThreadLocal.withInitial(() -> new RE(i));
     }
 
     @Override
-    protected boolean match(RE pattern, String searched) {
-        return pattern.match(searched);
+    protected boolean match(ThreadLocal<RE> pattern, String searched) {
+        return pattern.get().match(searched);
     }
 
     @Override
-    protected String[] find(RE pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+    protected String[] find(ThreadLocal<RE> pattern, String searched) {
+        throw new AssertionError("Not supported");
     }
 
 }

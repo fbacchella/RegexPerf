@@ -26,8 +26,7 @@ public class State_org_apache_xerces_impl_xpath_regex extends Runner<RegularExpr
 
     @Override
     protected String[] find(RegularExpression pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

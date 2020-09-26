@@ -22,8 +22,8 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
 
     @Override
     protected RunAutomaton generate(String i) {
-        RegExp r = new RegExp(i);
-        return new RunAutomaton(r.toAutomaton());
+        RegExp r = new RegExp(i, RegExp.ALL);
+        return new RunAutomaton(r.toAutomaton(), true);
     }
 
     @Override
@@ -33,8 +33,16 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
 
     @Override
     protected String[] find(RunAutomaton pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
+    }
+
+    @Override
+    protected String translate(int pattnum) {
+        if (pattnum == 0) {
+            return "(([^:]+)://)?([^:/]+)(:([0-9]+))?(/.*)";
+        } else {
+            return super.translate(pattnum);
+        }
     }
 
 }

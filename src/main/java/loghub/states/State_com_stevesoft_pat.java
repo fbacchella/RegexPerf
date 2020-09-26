@@ -14,34 +14,34 @@ import loghub.Runner;
  *
  */
 @State(Scope.Benchmark)
-public class State_com_stevesoft_pat extends Runner<Regex>{
+public class State_com_stevesoft_pat extends Runner<ThreadLocal<Regex>>{
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected Regex[] getPatternStorage(int size) {
-        return new Regex[size];
+    protected ThreadLocal<Regex>[] getPatternStorage(int size) {
+        return (ThreadLocal<Regex>[]) new ThreadLocal<?>[size];
     }
 
     @Override
-    protected Regex generate(String i) {
+    protected ThreadLocal<Regex> generate(String i) {
         try {
             Regex pattern = new Regex();
             pattern.compile(i);
             pattern.optimize();
-            return pattern;
+            return ThreadLocal.withInitial(() -> new Regex(pattern));
         } catch (RegSyntax e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected boolean match(Regex pattern, String searched) {
-        return pattern.search(searched);
+    protected boolean match(ThreadLocal<Regex> pattern, String searched) {
+        return pattern.get().search(searched);
     }
 
     @Override
-    protected String[] find(Regex pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+    protected String[] find(ThreadLocal<Regex> pattern, String searched) {
+        throw new AssertionError("Not supported");
     }
 
 }

@@ -27,8 +27,7 @@ public class State_com_google_code_regexp extends Runner<Pattern> {
 
     @Override
     protected String[] find(Pattern pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

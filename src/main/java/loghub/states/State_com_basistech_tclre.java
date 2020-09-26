@@ -34,8 +34,7 @@ public class State_com_basistech_tclre extends Runner<RePattern> {
 
     @Override
     protected String[] find(RePattern pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

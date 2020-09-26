@@ -31,8 +31,7 @@ public class State_gnu_rex extends Runner<Rex> {
 
     @Override
     protected String[] find(Rex pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }

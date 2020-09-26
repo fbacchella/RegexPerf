@@ -31,8 +31,7 @@ public class State_com_karneim_util_collection_regex extends Runner<Pattern> {
 
     @Override
     protected String[] find(Pattern pattern, String searched) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new AssertionError("Not supported");
     }
 
 }
