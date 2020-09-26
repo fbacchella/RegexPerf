@@ -33,7 +33,7 @@ public abstract class Runner<P> {
             "^(([^:]+)://)?([^:/]+)(:([0-9]+))?(/.*)", // URL match
             "(([^:]+)://)?([^:/]+)(:([0-9]+))?(/.*)", // URL match without starting ^
             "usd [+-]?[0-9]+.[0-9][0-9]", // Canonical US dollar amount
-            "\\b(\\w+)(\\s+\\1)+\\b", // Duplicate words
+            "\\b(\\w+)(\\s+\\1)+\\b", // backreference
             "(x+x+)+y", // Catastrophic Backtracking
             "\\{(\\d+):((.(?!-}))*).*", // Long matches
             "\\[(?<time>\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?)\\]\\s+\\[\\s?(?<severity>(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL)\\s?\\]\\s+\\[(?<thread>([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?)\\]\\s+\\[(?<logger>[\\w\\d\\.\\-_]*)\\]\\s(?<message>.*)"
@@ -132,16 +132,16 @@ public abstract class Runner<P> {
     protected abstract String[] find(P pattern, String searched);
 
     public void run(Blackhole blackHole) {
-        for (int patnum = 0; patnum < 4; patnum++) {
+        for (int patnum = 0; patnum < 3; patnum++) {
             for (int strnum = 0; strnum < 5; strnum++) {
                 match(patnum, strnum, blackHole);
             }
         }
     }
 
-    public void runbig(Blackhole blackHole) {
-        int patnum = 5;
-        int strnum = 7;
+    public void runbackreference(Blackhole blackHole) {
+        int patnum = 3;
+        int strnum = 3;
         match(patnum, strnum, blackHole);
     }
 
@@ -150,6 +150,12 @@ public abstract class Runner<P> {
         IntStream.of(5, 6).forEach(strnum -> {
             match(patnum, strnum, blackHole);
         });
+    }
+
+    public void runbig(Blackhole blackHole) {
+        int patnum = 5;
+        int strnum = 7;
+        match(patnum, strnum, blackHole);
     }
 
     public void runlog(Blackhole blackHole) {
@@ -164,7 +170,7 @@ public abstract class Runner<P> {
     private void compileAndStore(int pattnum) {
         try {
             compiledPatterns[pattnum] = generate(translate(pattnum));
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // assert false : patterns[pattnum] + " failed: "  + e.getMessage();
         }
     }
