@@ -13,9 +13,11 @@ import loghub.states.State_com_google_re2j;
 import loghub.states.State_com_ibm_icu_text;
 import loghub.states.State_com_karneim_util_collection_regex;
 import loghub.states.State_com_stevesoft_pat;
+import loghub.states.State_dk_brics_automaton;
 import loghub.states.State_gnu_regexp;
 import loghub.states.State_io_thekraken_grok_api;
 import loghub.states.State_java_util_regex;
+import loghub.states.State_java_util_regex_reuse;
 import loghub.states.State_jregex;
 import loghub.states.State_kmy_regex_util;
 import loghub.states.State_org_apache_oro_text_regex;
@@ -40,8 +42,14 @@ public class RegexPerf {
      * com_basistech_tclre *
      ***********************/
 
+    @Benchmark
     public void base_com_basistech_tclre(State_com_basistech_tclre state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_com_basistech_tclre(State_com_basistech_tclre state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     public void log_com_basistech_tclre(State_com_basistech_tclre state, Blackhole blackHole) {
@@ -52,17 +60,27 @@ public class RegexPerf {
     public void big_com_basistech_tclre(State_com_basistech_tclre state, Blackhole blackHole) {
         state.runbig(blackHole);
     }
+    @Benchmark
+    public void catastrophic_com_basistech_tclre(State_com_basistech_tclre state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
 
     /*******************
      * com_google_re2j *
      *******************/
 
+    @Benchmark
     public void base_com_google_re2j(State_com_google_re2j state, Blackhole blackHole) {
         state.run(blackHole);
     }
 
     public void log_com_google_re2j(State_com_google_re2j state, Blackhole blackHole) {
         state.runlog(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_com_google_re2j(State_com_google_re2j state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
     }
 
     /********************
@@ -89,15 +107,44 @@ public class RegexPerf {
      * com_stevesoft_patRegex *
      **************************/
 
+    @Benchmark
     public void base_com_stevesoft_patRegex(State_com_stevesoft_pat state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_com_stevesoft_patRegex(State_com_stevesoft_pat state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
+
+    @Benchmark
+    public void big_com_stevesoft_patRegex(State_com_stevesoft_pat state, Blackhole blackHole) {
+        state.runbig(blackHole);
+    }
+
+    @Benchmark
+    public void br_com_stevesoft_patRegex(State_com_stevesoft_pat state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     /*****************************
      * dk_brics_automaton_RegExp *
      *****************************/
 
-    // Failing
+    @Benchmark
+    public void base_dk_brics_automaton_RegExp(State_dk_brics_automaton state, Blackhole blackHole) {
+        state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_dk_brics_automaton_RegExp(State_dk_brics_automaton state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_dk_brics_automaton_RegExp(State_dk_brics_automaton state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
 
     /**************
      * gnu_regexp *
@@ -108,30 +155,21 @@ public class RegexPerf {
         state.run(blackHole);
     }
 
+    @Benchmark
+    public void br_gnu_regexp(State_gnu_regexp state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_gnu_regexp(State_gnu_regexp state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
+
     /***********
      * gnu_rex *
      ***********/
 
     // Failing
-
-    /*************************
-     * java_util_regex_reuse *
-     *************************/
-
-    @Benchmark
-    public void base_java_util_regex_reuse(State_java_util_regex state, Blackhole blackHole) {
-        state.run(blackHole);
-    }
-
-    @Benchmark
-    public void big_java_util_regex_reuse(State_java_util_regex state, Blackhole blackHole) {
-        state.runbig(blackHole);
-    }
-
-    @Benchmark
-    public void log_java_util_regex_reuse(State_java_util_regex state, Blackhole blackHole) {
-        state.runlog(blackHole);
-    }
 
     /*******************
      * java_util_regex *
@@ -140,6 +178,11 @@ public class RegexPerf {
     @Benchmark
     public void base_java_util_regex(State_java_util_regex state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_java_util_regex(State_java_util_regex state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     @Benchmark
@@ -157,6 +200,35 @@ public class RegexPerf {
         state.runlog(blackHole);
     }
 
+    /*************************
+     * java_util_regex_reuse *
+     *************************/
+
+    @Benchmark
+    public void base_java_util_regex_reuse(State_java_util_regex_reuse state, Blackhole blackHole) {
+        state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_java_util_regex_reuse(State_java_util_regex_reuse state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_java_util_regex_reuse(State_java_util_regex_reuse state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
+
+    @Benchmark
+    public void big_java_util_regex_reuse(State_java_util_regex_reuse state, Blackhole blackHole) {
+        state.runbig(blackHole);
+    }
+
+    @Benchmark
+    public void log_java_util_regex_reuse(State_java_util_regex_reuse state, Blackhole blackHole) {
+        state.runlog(blackHole);
+    }
+
     /**********
      * jregex *
      **********/
@@ -171,8 +243,9 @@ public class RegexPerf {
         state.runcatastroph(blackHole);
     }
 
-    public void log_jregex(State_jregex state, Blackhole blackHole) {
-        state.runlog(blackHole);
+    @Benchmark
+    public void br_jregex(State_jregex state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     /*************************
@@ -187,6 +260,11 @@ public class RegexPerf {
     @Benchmark
     public void catastrophic_io_thekraken_grok_api(State_io_thekraken_grok_api state, Blackhole blackHole) {
         state.runcatastroph(blackHole);
+    }
+
+    @Benchmark
+    public void br_io_thekraken_grok_api(State_io_thekraken_grok_api state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     @Benchmark
@@ -217,24 +295,86 @@ public class RegexPerf {
      * org_apache_oro_text_regex *
      *****************************/
 
+    @Benchmark
     public void base_org_apache_oro_text_regex(State_org_apache_oro_text_regex state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_apache_oro_text_regex(State_org_apache_oro_text_regex state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_apache_oro_text_regex(State_org_apache_oro_text_regex state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
     }
 
     /*********************
      * org_apache_regexp *
      *********************/
 
+    @Benchmark
     public void base_org_apache_regexp(State_org_apache_regexp state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_apache_regexp(State_org_apache_regexp state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_apache_regexp(State_org_apache_regexp state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
     }
 
     /********************************************************
      * org_apache_xerces_impl_xpath_regex_RegularExpression *
      ********************************************************/
 
+    @Benchmark
     public void base_org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
+
+    /************************
+     * org_joni_ascii_unsafe *
+     ************************/
+
+    @Benchmark
+    public void base_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
+        state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void log_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
+        state.runlog(blackHole);
+    }
+
+    @Benchmark
+    public void big_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
+        state.runbig(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
     }
 
     /************************
@@ -244,6 +384,11 @@ public class RegexPerf {
     @Benchmark
     public void base_org_joni_ascii_reuse(State_org_joni_ascii_reuse state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_joni_ascii_reuse(State_org_joni_ascii_reuse state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     @Benchmark
@@ -262,17 +407,8 @@ public class RegexPerf {
     }
 
     /*************************
-     * org_joni_ascii_unsafe *
-     *************************/
-
-    @Benchmark
-    public void base_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
-        state.run(blackHole);
-    }
-
-    /******************
      * org_joni_ascii *
-     ******************/
+     *************************/
 
     @Benchmark
     public void base_org_joni_ascii(State_org_joni_ascii state, Blackhole blackHole) {
@@ -280,8 +416,23 @@ public class RegexPerf {
     }
 
     @Benchmark
+    public void br_org_joni_ascii(State_org_joni_ascii state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
     public void log_org_joni_ascii(State_org_joni_ascii state, Blackhole blackHole) {
         state.runlog(blackHole);
+    }
+
+    @Benchmark
+    public void big_org_joni_ascii(State_org_joni_ascii state, Blackhole blackHole) {
+        state.runbig(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_joni_ascii(State_org_joni_ascii state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
     }
 
     /********************
@@ -293,6 +444,26 @@ public class RegexPerf {
         state.run(blackHole);
     }
 
+    @Benchmark
+    public void br_org_joni_utf16le(State_org_joni_utf16le state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
+    }
+
+    @Benchmark
+    public void log_org_joni_utf16le(State_org_joni_utf16le state, Blackhole blackHole) {
+        state.runlog(blackHole);
+    }
+
+    @Benchmark
+    public void big_org_joni_utf16le(State_org_joni_utf16le state, Blackhole blackHole) {
+        state.runbig(blackHole);
+    }
+
+    @Benchmark
+    public void catastrophic_org_joni_utf16le(State_org_joni_utf16le state, Blackhole blackHole) {
+        state.runcatastroph(blackHole);
+    }
+
     /************
      * org_joni *
      ************/
@@ -300,6 +471,11 @@ public class RegexPerf {
     @Benchmark
     public void base_org_joni(State_org_joni state, Blackhole blackHole) {
         state.run(blackHole);
+    }
+
+    @Benchmark
+    public void br_org_joni(State_org_joni state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
     @Benchmark
@@ -337,8 +513,8 @@ public class RegexPerf {
     }
 
     @Benchmark
-    public void log_com_google_code_regexp(State_com_google_code_regexp state, Blackhole blackHole) {
-        state.runlog(blackHole);
+    public void br_com_google_code_regexp(State_com_google_code_regexp state, Blackhole blackHole) {
+        state.runbackreference(blackHole);
     }
 
 }
