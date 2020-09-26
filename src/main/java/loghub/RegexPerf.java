@@ -517,4 +517,9 @@ public class RegexPerf {
         state.runbackreference(blackHole);
     }
 
+    @Benchmark
+    public void log_com_google_code_regexp(State_com_google_code_regexp state, Blackhole blackHole) {
+        state.runlog(blackHole);
+    }
+
 }

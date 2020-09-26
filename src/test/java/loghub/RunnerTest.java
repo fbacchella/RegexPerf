@@ -168,7 +168,7 @@ public class RunnerTest {
 
     @Test
     public void com_google_code_regexp() {
-        run(new State_com_google_code_regexp(), TEST_ALL - TEST_NAMEDPATTERN);
+        run(new State_com_google_code_regexp(), TEST_ALL);
     }
 
 }
