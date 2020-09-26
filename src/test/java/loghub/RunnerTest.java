@@ -29,131 +29,146 @@ import loghub.states.State_org_joni_utf16le;
 
 public class RunnerTest {
 
-    private void run(Runner<?> runner, boolean withbig, boolean withlog) {
+    private static final int TEST_BASE = 2 << 0;
+    private static final int TEST_BACKREFERENCE = 2 << 1;
+    private static final int TEST_BIG = 2 << 2;
+    private static final int TEST_CATASTROPH = 2 << 3;
+    private static final int TEST_NAMEDPATTERN = 2 << 4;
+    private static final int TEST_ALL = (2 << 5) - 1;
+
+    private void run(Runner<?> runner, int testMask) {
         Blackhole bh = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
         runner.prepare();
-        runner.run(bh);
-        if (withbig) {
+        if ((testMask & TEST_BASE) > 0) {
+            runner.run(bh);
+        }
+        if ((testMask & TEST_BACKREFERENCE) > 0) {
+            runner.runbackreference(bh);
+        }
+        if ((testMask & TEST_BIG) > 0) {
             runner.runbig(bh);
         }
-        runner.runcatastroph(bh);
-        if (withlog) {
+        if ((testMask & TEST_CATASTROPH) > 0) {
+           runner.runcatastroph(bh);
+        }
+        if ((testMask & TEST_NAMEDPATTERN) > 0) {
             runner.runlog(bh);
         }
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void com_basistech_tclre() {
-        run(new State_com_basistech_tclre(), true, true);
+        run(new State_com_basistech_tclre(), TEST_BASE | TEST_BACKREFERENCE | TEST_BIG | TEST_CATASTROPH);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void com_google_re2j() {
-        run(new State_com_google_re2j(), false, true);
+        run(new State_com_google_re2j(), TEST_BASE | TEST_CATASTROPH);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void com_ibm_icu_text() {
-        run(new State_com_ibm_icu_text(), false, true);
+        run(new State_com_ibm_icu_text(), 0);
     }
 
-    @Test(expected = Error.class)
+    @Test
     public void com_karneim_util_collection_regex() {
-        run(new State_com_karneim_util_collection_regex(), false, true);
+        run(new State_com_karneim_util_collection_regex(), 0);
     }
 
     @Test
     public void com_stevesoft_pat() {
-        run(new State_com_stevesoft_pat(), true, false);
+        run(new State_com_stevesoft_pat(), TEST_ALL - TEST_NAMEDPATTERN);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void dk_brics_automaton() {
-        run(new State_dk_brics_automaton(), false, false);
+        run(new State_dk_brics_automaton(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
     @Test
     public void gnu_regexp() {
-        run(new State_gnu_regexp(), false, false);
+        run(new State_gnu_regexp(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
+    @Test
     public void gnu_rex() {
-        run(new State_gnu_rex(), true, true);
+        run(new State_gnu_rex(), 0);
     }
 
     @Test
     public void io_thekraken_grok_api() {
-        run(new State_io_thekraken_grok_api(), true, true);
-    }
-
-    @Test
-    public void java_util_regex_reuse() {
-        run(new State_java_util_regex_reuse(), true, true);
+        run(new State_io_thekraken_grok_api(), TEST_ALL);
     }
 
     @Test
     public void java_util_regex() {
-        run(new State_java_util_regex(), true, true);
+        run(new State_java_util_regex(), TEST_ALL);
+    }
+
+    @Test
+    public void java_util_regex_reuse() {
+        run(new State_java_util_regex_reuse(), TEST_ALL);
     }
 
     @Test
     public void jregex() {
-        run(new State_jregex(), false, true);
+        run(new State_jregex(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void kmy_regex_util() {
-        run(new State_kmy_regex_util(), true, true);
+        run(new State_kmy_regex_util(), 0);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void monq_jfa() {
-        run(new State_monq_jfa(), true, true);
+        run(new State_monq_jfa(), 0);
     }
 
     @Test
     public void org_apache_oro_text_regex() {
-        run(new State_org_apache_oro_text_regex(), false, false);
+        run(new State_org_apache_oro_text_regex(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void org_apache_regexp() {
-        run(new State_org_apache_regexp(), false, true);
+        run(new State_org_apache_regexp(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void org_apache_xerces_impl_xpath_regex() {
-        run(new State_org_apache_xerces_impl_xpath_regex(), false, true);
+        run(new State_org_apache_xerces_impl_xpath_regex(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
     }
 
     @Test
     public void org_joni_ascii_reuse() {
-        run(new State_org_joni_ascii_reuse(), true, true);
+        run(new State_org_joni_ascii_reuse(), TEST_ALL);
     }
 
     @Test
     public void org_joni_ascii_unsafe() {
-        run(new State_org_joni_ascii_unsafe(), true, true);
+        run(new State_org_joni_ascii_unsafe(), TEST_ALL);
     }
 
     @Test
     public void org_joni_ascii() {
-        run(new State_org_joni_ascii(), true, true);
+        run(new State_org_joni_ascii(), TEST_ALL);
     }
 
     @Test
     public void org_joni() {
-        run(new State_org_joni(), true, true);
+        run(new State_org_joni(), TEST_ALL);
     }
 
     @Test
     public void org_joni_utf16le() {
-        run(new State_org_joni_utf16le(), true, true);
+        run(new State_org_joni_utf16le(), TEST_ALL);
     }
 
     @Test
     public void com_google_code_regexp() {
-        run(new State_com_google_code_regexp(), true, false);
+        run(new State_com_google_code_regexp(), TEST_ALL - TEST_NAMEDPATTERN);
     }
 
 }
