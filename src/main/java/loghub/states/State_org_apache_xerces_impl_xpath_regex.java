@@ -15,6 +15,11 @@ public class State_org_apache_xerces_impl_xpath_regex extends Runner<RegularExpr
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 5 && patternNum != 6;
+    }
+
+    @Override
     protected RegularExpression generate(String i) {
         return new RegularExpression(i);
     }

@@ -164,14 +164,18 @@ public abstract class Runner<P> {
 
     @Setup
     public void prepare() {
-        IntStream.range(0, patterns.length).forEach(this::compileAndStore);
+        IntStream.range(0, patterns.length).filter(this::filterPattern).forEach(this::compileAndStore);
+    }
+
+    protected boolean filterPattern(int patternNum) {
+        return true;
     }
 
     private void compileAndStore(int pattnum) {
         try {
             compiledPatterns[pattnum] = generate(translate(pattnum));
         } catch (Throwable e) {
-            // assert false : patterns[pattnum] + " failed: "  + e.getMessage();
+            throw new RuntimeException(String.format("pattern %d \"%s\" failed",  pattnum, patterns[pattnum]), e);
         }
     }
 

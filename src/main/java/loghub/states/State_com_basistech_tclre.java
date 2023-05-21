@@ -28,6 +28,11 @@ public class State_com_basistech_tclre extends Runner<RePattern> {
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 6;
+    }
+
+    @Override
     protected boolean match(RePattern pattern, String searched) {
         return pattern.matcher(searched).matches();
     }

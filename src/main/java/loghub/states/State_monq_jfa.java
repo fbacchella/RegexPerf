@@ -20,6 +20,11 @@ public class State_monq_jfa extends Runner<Object> {
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return false;
+    }
+
+    @Override
     protected Object generate(String i) {
         throw new AssertionError("Not mavenized");
     }

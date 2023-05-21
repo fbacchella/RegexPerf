@@ -35,6 +35,10 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
         }
     }
 
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 6;
+    }
+
     @Override
     protected boolean match(Pattern pattern, String searched) {
         return perl5Matcher.get().matches(searched, pattern);

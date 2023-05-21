@@ -16,6 +16,11 @@ public class State_gnu_regexp extends Runner<RE> {
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 6;
+    }
+
+    @Override
     protected RE generate(String i) {
         try {
             return new RE(i);

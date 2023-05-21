@@ -11,6 +11,11 @@ import loghub.Runner;
 public class State_com_google_re2j extends Runner<Pattern> {
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 3 && patternNum != 5 && patternNum != 6;
+    }
+
+    @Override
     protected Pattern[] getPatternStorage(int size) {
         return new Pattern[size];
     }

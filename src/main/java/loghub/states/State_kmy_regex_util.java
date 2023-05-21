@@ -20,6 +20,11 @@ public class State_kmy_regex_util extends Runner<Object> {
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return false;
+    }
+
+    @Override
     protected Object generate(String i) {
         throw new AssertionError("Not mavenized");
     }

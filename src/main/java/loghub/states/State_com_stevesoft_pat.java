@@ -23,6 +23,11 @@ public class State_com_stevesoft_pat extends Runner<ThreadLocal<Regex>>{
     }
 
     @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 6;
+    }
+
+    @Override
     protected ThreadLocal<Regex> generate(String i) {
         try {
             Regex pattern = new Regex();

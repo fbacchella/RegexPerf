@@ -20,6 +20,12 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
         return new RunAutomaton[size];
     }
 
+
+    @Override
+    protected boolean filterPattern(int patternNum) {
+        return patternNum != 6;
+    }
+
     @Override
     protected RunAutomaton generate(String i) {
         RegExp r = new RegExp(i, RegExp.ALL);
