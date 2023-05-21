@@ -6,10 +6,8 @@ import org.openjdk.jmh.annotations.State;
 import loghub.Runner;
 
 /**
- * See http://jint.sourceforge.net, no maven
+ * See <a href="https://jint.sourceforge.net">...</a>, no maven
  * @author Fabrice Bacchella
- *
- * @param <P>
  */
 @State(Scope.Benchmark)
 public class State_kmy_regex_util extends Runner<Object> {
@@ -26,17 +24,17 @@ public class State_kmy_regex_util extends Runner<Object> {
 
     @Override
     protected Object generate(String i) {
-        throw new AssertionError("Not mavenized");
+        throw new AssertionError(NOT_MAVENIZED);
     }
 
     @Override
     protected boolean match(Object pattern, String searched) {
-        throw new AssertionError("Not mavenized");
+        throw new AssertionError(NOT_MAVENIZED);
     }
 
     @Override
     protected String[] find(Object pattern, String searched) {
-        throw new AssertionError("Not mavenized");
+        throw new AssertionError(NOT_MAVENIZED);
     }
 
 }

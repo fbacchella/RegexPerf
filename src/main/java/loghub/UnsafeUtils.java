@@ -6,7 +6,7 @@ import sun.misc.Unsafe;
 
 @SuppressWarnings("restriction")
 public class UnsafeUtils {
-    private final static Unsafe UNSAFE;
+    private static final Unsafe UNSAFE;
     public static final long STRING_VALUE_FIELD_OFFSET;
 
     static {
@@ -16,7 +16,7 @@ public class UnsafeUtils {
             UNSAFE = (Unsafe) f.get(null);
             STRING_VALUE_FIELD_OFFSET = getFieldOffset("value");
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
     
@@ -27,4 +27,9 @@ public class UnsafeUtils {
     public static char[] toCharArray(String string) {
         return (char[]) UNSAFE.getObject(string, STRING_VALUE_FIELD_OFFSET);
     }
+
+    private UnsafeUtils() {
+        // Empty
+    }
+
 }

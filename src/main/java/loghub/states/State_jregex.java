@@ -8,7 +8,7 @@ import jregex.Pattern;
 import loghub.Runner;
 
 /**
- * See http://jregex.sourceforge.net, Last Update: 2013-06-12
+ * See <a href="https://jregex.sourceforge.net">https://jregex.sourceforge.net</a>, Last Update: 2013-06-12
  * @author Fabrice Bacchella
  *
  */
@@ -34,8 +34,7 @@ public class State_jregex extends Runner<Pattern> {
     protected String[] find(Pattern pattern, String searched) {
         Matcher m = pattern.matcher(searched);
         if (m.matches()) {
-            String[] found = m.groups();
-            return found;
+            return m.groups();
         } else {
             return null;
         }

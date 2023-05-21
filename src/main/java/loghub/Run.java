@@ -16,7 +16,6 @@ import joptsimple.OptionSet;
 public class Run {
 
     public static void main(String[] args) throws RunnerException {
-
         OptionParser parser = new OptionParser( "fF:o:l:" );
         OptionSet options = parser.parse(args);
         options.nonOptionArguments();
@@ -73,7 +72,7 @@ public class Run {
                         .forks(fork)
                         .shouldFailOnError(shouldFailOnError)
                         .shouldDoGC(false)
-                        .timeout(TimeValue.seconds(11 * 6 + 2 * 11))
+                        .timeout(TimeValue.seconds(11L * 6 + 2 * 11))
                         ;
 
         if (format != null) {
@@ -100,7 +99,7 @@ public class Run {
         }
 
         List<?> otheroptions = options.nonOptionArguments();
-        if (otheroptions.size() != 0) {
+        if (!otheroptions.isEmpty()) {
             otheroptions.forEach(i -> builder.include("loghub." + i.toString()));
         } else {
             builder

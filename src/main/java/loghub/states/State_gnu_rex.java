@@ -16,12 +16,8 @@ public class State_gnu_rex extends Runner<Rex> {
     }
 
     @Override
-    protected Rex generate(String i) {
-        try {
-            return Rex.build(i);
-        } catch (RegExprSyntaxException e) {
-            throw new RuntimeException(e);
-        }
+    protected Rex generate(String i) throws RegExprSyntaxException {
+        return Rex.build(i);
     }
 
     @Override
@@ -31,7 +27,7 @@ public class State_gnu_rex extends Runner<Rex> {
 
     @Override
     protected String[] find(Rex pattern, String searched) {
-        throw new AssertionError("Not supported");
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
 }

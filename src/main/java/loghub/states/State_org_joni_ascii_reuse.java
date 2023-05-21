@@ -20,7 +20,7 @@ public class State_org_joni_ascii_reuse extends Runner<org.joni.Regex> {
         int length = searched.length();
         char[] buffer = holder.get();
         searched.getChars(0, length, buffer, 0);
-        byte b[] = new byte[length];
+        byte[] b = new byte[length];
         for (int j = 0; j < length; j++) {
             b[j] = (byte) (buffer[j] & 0x7F);
         }
@@ -51,10 +51,10 @@ public class State_org_joni_ascii_reuse extends Runner<org.joni.Regex> {
         Matcher matcher = pattern.matcher(str);
         if (matcher.search(0, str.length, Option.DEFAULT) != -1) {
             Region region = matcher.getEagerRegion();
-            String[] found = new String[region.numRegs];
-            for (int i = 0 ; i < region.numRegs ; i++) {
-                int begin = region.beg[i];
-                int end = region.end[i];
+            String[] found = new String[region.getNumRegs()];
+            for (int i = 0 ; i < found.length ; i++) {
+                int begin = region.getBeg(i);
+                int end = region.getEnd(i);
                 if (begin != -1 && end != -1) {
                     found[i] = new String(str, begin, end - begin, StandardCharsets.US_ASCII);
                 }

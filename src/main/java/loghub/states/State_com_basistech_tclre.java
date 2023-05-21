@@ -10,6 +10,11 @@ import com.basistech.tclre.PatternFlags;
 import com.basistech.tclre.RePattern;
 import com.basistech.tclre.RegexException;
 
+/**
+ * See <a href="https://github.com/basis-technology-corp/tcl-regex-java">https://github.com/basis-technology-corp/tcl-regex-java</a> and <a href="https://basis-technology-corp.github.io/tcl-regex-java/apidocs/index.html">https://basis-technology-corp.github.io/tcl-regex-java/apidocs/index.html</a>
+ * @author Fabrice Bacchella
+ *
+ */
 @State(Scope.Benchmark)
 public class State_com_basistech_tclre extends Runner<RePattern> {
 
@@ -19,12 +24,8 @@ public class State_com_basistech_tclre extends Runner<RePattern> {
     }
 
     @Override
-    protected RePattern generate(String i) {
-        try {
-            return HsrePattern.compile(i, PatternFlags.ADVANCED);
-        } catch (RegexException e) {
-            throw new RuntimeException(e);
-        }
+    protected RePattern generate(String i) throws RegexException {
+        return HsrePattern.compile(i, PatternFlags.ADVANCED);
     }
 
     @Override

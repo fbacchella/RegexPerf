@@ -30,8 +30,8 @@ import loghub.states.State_org_joni_ascii_unsafe;
 import loghub.states.State_org_joni_utf16le;
 
 /**
- * See http://tusker.org/regex/regex_benchmark.html
- * and http://www.javaadvent.com/2015/12/java-regular-expression-library-benchmarks-2015.html
+ * See <a href="http://tusker.org/regex/regex_benchmark.html">...</a>
+ * and <a href="http://www.javaadvent.com/2015/12/java-regular-expression-library-benchmarks-2015.html">...</a>
  * @author fa4
  *
  */

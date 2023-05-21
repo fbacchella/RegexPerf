@@ -7,6 +7,12 @@ import com.google.re2j.Pattern;
 
 import loghub.Runner;
 
+/**
+ * See <a href="https://github.com/google/re2j">https://github.com/google/re2j</a>
+ *
+ * @author Fabrice Bacchella
+ *
+ */
 @State(Scope.Benchmark)
 public class State_com_google_re2j extends Runner<Pattern> {
 
@@ -32,7 +38,7 @@ public class State_com_google_re2j extends Runner<Pattern> {
 
     @Override
     protected String[] find(Pattern pattern, String searched) {
-        throw new AssertionError("Not supported");
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
 }

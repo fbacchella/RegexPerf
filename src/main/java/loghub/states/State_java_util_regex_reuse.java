@@ -9,7 +9,6 @@ import org.openjdk.jmh.annotations.State;
 import loghub.Runner;
 
 /**
- * See http://developer.java.sun.com/developer/technicalArticles/releases/1.4regex/
  * @author Fabrice Bacchella
  *
  */

@@ -8,7 +8,7 @@ import dk.brics.automaton.RunAutomaton;
 import loghub.Runner;
 
 /**
- * See http://cs.au.dk/~amoeller/automaton/
+ * See <a href="https://www.brics.dk/automaton/">...</a>
  * @author Fabrice Bacchella
  *
  */
@@ -39,7 +39,8 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
 
     @Override
     protected String[] find(RunAutomaton pattern, String searched) {
-        throw new AssertionError("Not supported");
+        // Not hanlded, AutomatonMatcher.group(int) is a trap
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
     @Override

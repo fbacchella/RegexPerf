@@ -9,8 +9,8 @@ import com.google.code.regexp.Pattern;
 import loghub.Runner;
 
 /**
- * See http://tony19.github.io/named-regexp/doc/0.2.5/com/google/code/regexp/package-summary.html
- * 
+ * See <a href="https://tony19.github.io/named-regexp/doc/0.2.5/com/google/code/regexp/package-summary.html">https://tony19.github.io/named-regexp/doc/0.2.5/com/google/code/regexp/package-summary.html</a>
+ *
  * @author Fabrice Bacchella
  *
  */

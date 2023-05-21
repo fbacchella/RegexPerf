@@ -9,7 +9,7 @@ import com.stevesoft.pat.Regex;
 import loghub.Runner;
 
 /**
- * See http://www.javaregex.com
+ * See <a href="https://www.javaregex.com">https://www.javaregex.com</a>
  * @author Fabrice Bacchella
  *
  */
@@ -28,15 +28,11 @@ public class State_com_stevesoft_pat extends Runner<ThreadLocal<Regex>>{
     }
 
     @Override
-    protected ThreadLocal<Regex> generate(String i) {
-        try {
-            Regex pattern = new Regex();
-            pattern.compile(i);
-            pattern.optimize();
-            return ThreadLocal.withInitial(() -> new Regex(pattern));
-        } catch (RegSyntax e) {
-            throw new RuntimeException(e);
-        }
+    protected ThreadLocal<Regex> generate(String i) throws RegSyntax {
+        Regex pattern = new Regex();
+        pattern.compile(i);
+        pattern.optimize();
+        return ThreadLocal.withInitial(() -> new Regex(pattern));
     }
 
     @Override

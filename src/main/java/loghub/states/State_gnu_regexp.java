@@ -21,12 +21,8 @@ public class State_gnu_regexp extends Runner<RE> {
     }
 
     @Override
-    protected RE generate(String i) {
-        try {
-            return new RE(i);
-        } catch (REException e) {
-            throw new RuntimeException(e);
-        }
+    protected RE generate(String i) throws REException {
+        return new RE(i);
     }
 
     @Override
@@ -36,7 +32,7 @@ public class State_gnu_regexp extends Runner<RE> {
 
     @Override
     protected String[] find(RE pattern, String searched) {
-        throw new AssertionError("Not supported");
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
 }

@@ -10,7 +10,7 @@ import org.openjdk.jmh.annotations.State;
 import loghub.Runner;
 
 /**
- * See http://jakarta.apache.org/oro/, retired
+ * See <a href="https://jakarta.apache.org/oro/">https://jakarta.apache.org/oro/</a>, retired
  * @author Fabrice Baccchella
  *
  */
@@ -26,15 +26,11 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
     }
 
     @Override
-    protected Pattern generate(String i) {
-        try {
-            Pattern regexpr = perl5Compiler.compile(i);
-            return regexpr;
-        } catch (MalformedPatternException e) {
-            throw new RuntimeException(e);
-        }
+    protected Pattern generate(String i) throws MalformedPatternException {
+        return perl5Compiler.compile(i);
     }
 
+    @Override
     protected boolean filterPattern(int patternNum) {
         return patternNum != 6;
     }
@@ -46,7 +42,7 @@ public class State_org_apache_oro_text_regex extends Runner<Pattern> {
 
     @Override
     protected String[] find(Pattern pattern, String searched) {
-        throw new AssertionError("Not supported");
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
 }

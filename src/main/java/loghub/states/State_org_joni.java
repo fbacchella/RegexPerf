@@ -39,10 +39,10 @@ public class State_org_joni extends Runner<org.joni.Regex> {
         Matcher matcher = pattern.matcher(str);
         if (matcher.search(0, str.length, Option.DEFAULT) != -1) {
             Region region = matcher.getEagerRegion();
-            String[] found = new String[region.numRegs];
-            for (int i = 0 ; i < region.numRegs ; i++) {
-                int begin = region.beg[i];
-                int end = region.end[i];
+            String[] found = new String[region.getNumRegs()];
+            for (int i = 0 ; i < region.getNumRegs() ; i++) {
+                int begin = region.getBeg(i);
+                int end = region.getEnd(i);
                 if (begin != -1 && end != -1) {
                     found[i] = new String(str, begin, end - begin, StandardCharsets.UTF_8);
                 }

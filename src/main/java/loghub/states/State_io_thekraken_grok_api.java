@@ -19,19 +19,15 @@ public class State_io_thekraken_grok_api extends Runner<Grok> {
     }
 
     @Override
-    protected Grok generate(String i) {
-        try {
-            Grok grok = new Grok();
-            grok.addPattern("TIME", "\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?");
-            grok.addPattern("SEVERITY", "(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL");
-            grok.addPattern("THREAD", "([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?");
-            grok.addPattern("LOGGER", "[\\w\\d\\.\\-_]*");
-            grok.addPattern("MESSAGE", ".*");
-            grok.compile(i, false);
-            return grok;
-        } catch (GrokException e) {
-            throw new RuntimeException(e);
-        }
+    protected Grok generate(String i) throws GrokException {
+        Grok grok = new Grok();
+        grok.addPattern("TIME", "\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?");
+        grok.addPattern("SEVERITY", "(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL");
+        grok.addPattern("THREAD", "([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?");
+        grok.addPattern("LOGGER", "[\\w\\d\\.\\-_]*");
+        grok.addPattern("MESSAGE", ".*");
+        grok.compile(i, false);
+        return grok;
     }
 
     @Override
@@ -46,7 +42,7 @@ public class State_io_thekraken_grok_api extends Runner<Grok> {
         Match gm = pattern.match(searched);
         gm.captures();
         Map<String, Object> content = gm.toMap();
-        return content.entrySet().stream().map(e -> e.getValue().toString()).toArray(String[]::new);
+        return content.values().stream().map(Object::toString).toArray(String[]::new);
     }
 
     @Override

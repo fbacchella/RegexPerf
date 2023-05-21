@@ -29,6 +29,10 @@ import com.google.common.base.Strings;
 
 public abstract class Runner<P> {
 
+    public static final String LIBRARY_NOT_FOUND = "Library not found";
+    public static final String NOT_SUPPORTED = "Not supported";
+    public static final String NOT_MAVENIZED = "Not mavenized";
+
     private static final String[] patterns = {
             "^(([^:]+)://)?([^:/]+)(:([0-9]+))?(/.*)", // URL match
             "(([^:]+)://)?([^:/]+)(:([0-9]+))?(/.*)", // URL match without starting ^
@@ -147,9 +151,7 @@ public abstract class Runner<P> {
 
     public void runcatastroph(Blackhole blackHole) {
         int patnum = 4;
-        IntStream.of(5, 6).forEach(strnum -> {
-            match(patnum, strnum, blackHole);
-        });
+        IntStream.of(5, 6).forEach(strnum -> match(patnum, strnum, blackHole));
     }
 
     public void runbig(Blackhole blackHole) {
@@ -174,8 +176,8 @@ public abstract class Runner<P> {
     private void compileAndStore(int pattnum) {
         try {
             compiledPatterns[pattnum] = generate(translate(pattnum));
-        } catch (Throwable e) {
-            throw new RuntimeException(String.format("pattern %d \"%s\" failed",  pattnum, patterns[pattnum]), e);
+        } catch (Exception e) {
+            throw new IllegalStateException(String.format("pattern %d \"%s\" failed",  pattnum, patterns[pattnum]), e);
         }
     }
 

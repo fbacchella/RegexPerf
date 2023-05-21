@@ -7,7 +7,7 @@ import org.openjdk.jmh.annotations.State;
 import loghub.Runner;
 
 /**
- * See http://jakarta.apache.org/regexp/ (retired)
+ * See <a href="http://jakarta.apache.org/regexp/">https://jakarta.apache.org/regexp/</a> (retired)
  * @author Fabrice Bacchella
  *
  */
@@ -32,7 +32,7 @@ public class State_org_apache_regexp extends Runner<ThreadLocal<RE>>{
 
     @Override
     protected String[] find(ThreadLocal<RE> pattern, String searched) {
-        throw new AssertionError("Not supported");
+        throw new AssertionError(NOT_SUPPORTED);
     }
 
 }
