@@ -161,7 +161,7 @@ public abstract class Runner<P> {
     }
 
     protected abstract P[] getPatternStorage(int size);
-    protected abstract P generate(String i);
+    protected abstract P generate(String i) throws Exception;
 
     protected boolean match(P pattern, String searched) {
         throw new AssertionError(NOT_SUPPORTED);
