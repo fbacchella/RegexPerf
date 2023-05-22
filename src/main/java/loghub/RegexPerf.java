@@ -200,6 +200,16 @@ public class RegexPerf {
         state.runlog(blackHole);
     }
 
+    @Benchmark
+    public void find_java_util_regex(State_java_util_regex state, Blackhole blackHole) {
+        state.runfind(blackHole);
+    }
+
+    @Benchmark
+    public void match_java_util_regex(State_java_util_regex state, Blackhole blackHole) {
+        state.runmatch(blackHole);
+    }
+
     /*************************
      * java_util_regex_reuse *
      *************************/

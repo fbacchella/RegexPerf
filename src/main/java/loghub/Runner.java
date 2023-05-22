@@ -42,7 +42,8 @@ public abstract class Runner<P> {
             "\\b(\\w+)(\\s+\\1)+\\b", // backreference
             "(x+x+)+y", // Catastrophic Backtracking
             "\\{(\\d+):((.(?!-}))*).*", // Long matches
-            "\\[(?<time>\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?)\\]\\s+\\[\\s?(?<severity>(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL)\\s?\\]\\s+\\[(?<thread>([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?)\\]\\s+\\[(?<logger>[\\w\\d\\.\\-_]*)\\]\\s(?<message>.*)"
+            "\\[(?<time>\\d{4}[\\/-]\\d{2}[\\/-]\\d{2}[\\-\\s]\\d{2}:\\d{2}:\\d{2}([\\.,]\\d+)?)\\]\\s+\\[\\s?(?<severity>(?i)TRACE|DEBUG|PERF|NOTE|INFO|WARN|ERROR|FATAL)\\s?\\]\\s+\\[(?<thread>([\\\"\\w\\d\\.\\,\\-_\\@\\s\\/\\:\\#\\\\\\=\\{\\}\\&\\+\\%\\)\\(]*)((\\.\\.\\.\\[).*(ing\\]))?)\\]\\s+\\[(?<logger>[\\w\\d\\.\\-_]*)\\]\\s(?<message>.*)",
+            ".* SomeString .*"
     };
 
     private static final String[] strings = {
@@ -53,13 +54,15 @@ public abstract class Runner<P> {
             "same same same",
             "xxxxxxxxxxxxxxxxy", //Succeed backtracking
             "xxxxxxxxxxxxxxxxx", //Failing backtracking
-            "{1:" + Strings.repeat("this is some more text - and some more and some more and even more ", 10) + "-}\n",
-            "[2020-07-20 09:35:41,099] [INFO ] [1637163705@thread-name-3284] [loghub.dummy.class] A found String."
+            "{1:" + Strings.repeat("this is some more text - and some more and some more and even more ", 10) + "-}",
+            "[2020-07-20 09:35:41,099] [INFO ] [1637163705@thread-name-3284] [loghub.dummy.class] A found String.",
+            "prefix SomeString suffix",
+            Strings.repeat("this is some more text - and some more and some more and even more ", 10) + " SomeString " + Strings.repeat("this is some more text - and some more and some more and even more ", 10),
     };
 
     private final P[] compiledPatterns;
 
-    private static boolean[][] expectedMatch = new boolean[7][9];
+    private static final boolean[][] expectedMatch = new boolean[8][11];
 
     static
     {
@@ -72,6 +75,8 @@ public abstract class Runner<P> {
         expectedMatch[0][6] = false;
         expectedMatch[0][7] = false;
         expectedMatch[0][8] = false;
+        expectedMatch[0][9] = false;
+        expectedMatch[0][10] = false;
         expectedMatch[1][0] = true;
         expectedMatch[1][1] = true;
         expectedMatch[1][2] = false;
@@ -81,6 +86,8 @@ public abstract class Runner<P> {
         expectedMatch[1][6] = false;
         expectedMatch[1][7] = false;
         expectedMatch[1][8] = false;
+        expectedMatch[1][9] = false;
+        expectedMatch[1][10] = false;
         expectedMatch[2][0] = false;
         expectedMatch[2][1] = false;
         expectedMatch[2][2] = true;
@@ -90,6 +97,8 @@ public abstract class Runner<P> {
         expectedMatch[2][6] = false;
         expectedMatch[2][7] = false;
         expectedMatch[2][8] = false;
+        expectedMatch[1][9] = false;
+        expectedMatch[1][10] = false;
         expectedMatch[3][0] = false;
         expectedMatch[3][1] = false;
         expectedMatch[3][2] = false;
@@ -99,6 +108,8 @@ public abstract class Runner<P> {
         expectedMatch[3][6] = false;
         expectedMatch[3][7] = false;
         expectedMatch[3][8] = false;
+        expectedMatch[3][9] = false;
+        expectedMatch[3][10] = false;
         expectedMatch[4][0] = false;
         expectedMatch[4][1] = false;
         expectedMatch[4][2] = false;
@@ -108,6 +119,8 @@ public abstract class Runner<P> {
         expectedMatch[4][6] = false;
         expectedMatch[4][7] = false;
         expectedMatch[4][8] = false;
+        expectedMatch[4][9] = false;
+        expectedMatch[4][10] = false;
         expectedMatch[5][0] = false;
         expectedMatch[5][1] = false;
         expectedMatch[5][2] = false;
@@ -117,6 +130,8 @@ public abstract class Runner<P> {
         expectedMatch[5][6] = false;
         expectedMatch[5][7] = true;
         expectedMatch[5][8] = false;
+        expectedMatch[5][9] = false;
+        expectedMatch[5][10] = false;
         expectedMatch[6][0] = false;
         expectedMatch[6][1] = false;
         expectedMatch[6][2] = false;
@@ -126,10 +141,23 @@ public abstract class Runner<P> {
         expectedMatch[6][6] = false;
         expectedMatch[6][7] = false;
         expectedMatch[6][8] = true;
+        expectedMatch[6][9] = false;
+        expectedMatch[6][10] = false;
+        expectedMatch[7][0] = false;
+        expectedMatch[7][1] = false;
+        expectedMatch[7][2] = false;
+        expectedMatch[7][3] = false;
+        expectedMatch[7][4] = false;
+        expectedMatch[7][5] = false;
+        expectedMatch[7][6] = false;
+        expectedMatch[7][7] = false;
+        expectedMatch[7][8] = false;
+        expectedMatch[7][9] = true;
+        expectedMatch[7][10] = true;
     }
 
     protected Runner() {
-        compiledPatterns = getPatternStorage(7);
+        compiledPatterns = getPatternStorage(8);
     }
 
     protected abstract P[] getPatternStorage(int size);

@@ -1,5 +1,6 @@
 package loghub;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openjdk.jmh.infra.Blackhole;
 
@@ -10,6 +11,7 @@ import loghub.states.State_com_ibm_icu_text;
 import loghub.states.State_com_karneim_util_collection_regex;
 import loghub.states.State_com_stevesoft_pat;
 import loghub.states.State_dk_brics_automaton;
+import loghub.states.State_dregex;
 import loghub.states.State_gnu_regexp;
 import loghub.states.State_gnu_rex;
 import loghub.states.State_io_thekraken_grok_api;
@@ -34,13 +36,16 @@ public class RunnerTest {
     private static final int TEST_BIG = 2 << 2;
     private static final int TEST_CATASTROPH = 2 << 3;
     private static final int TEST_NAMEDPATTERN = 2 << 4;
-    private static final int TEST_ALL = (2 << 5) - 1;
+    private static final int TEST_FIND = 2 << 5;
+    private static final int TEST_ALL = (2 << 6) - 1;
 
     private void run(Runner<?> runner, int testMask) {
         Blackhole bh = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
         runner.prepare();
+
         if ((testMask & TEST_BASE) > 0) {
             runner.run(bh);
+            runner.runmatch(bh);
         }
         if ((testMask & TEST_BACKREFERENCE) > 0) {
             runner.runbackreference(bh);
@@ -53,6 +58,9 @@ public class RunnerTest {
         }
         if ((testMask & TEST_NAMEDPATTERN) > 0) {
             runner.runlog(bh);
+        }
+        if ((testMask & TEST_FIND) > 0) {
+            runner.runfind(bh);
         }
     }
 
@@ -78,7 +86,7 @@ public class RunnerTest {
 
     @Test
     public void com_stevesoft_pat() {
-        run(new State_com_stevesoft_pat(), TEST_ALL - TEST_NAMEDPATTERN);
+        run(new State_com_stevesoft_pat(), TEST_ALL - TEST_NAMEDPATTERN - TEST_FIND);
     }
 
     @Test
@@ -98,7 +106,7 @@ public class RunnerTest {
 
     @Test
     public void io_thekraken_grok_api() {
-        run(new State_io_thekraken_grok_api(), TEST_ALL);
+        run(new State_io_thekraken_grok_api(), TEST_ALL - TEST_FIND);
     }
 
     @Test
@@ -113,7 +121,7 @@ public class RunnerTest {
 
     @Test
     public void jregex() {
-        run(new State_jregex(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH);
+        run(new State_jregex(), TEST_BASE | TEST_BACKREFERENCE | TEST_CATASTROPH | TEST_NAMEDPATTERN | TEST_FIND);
     }
 
     @Test
@@ -169,6 +177,11 @@ public class RunnerTest {
     @Test
     public void com_google_code_regexp() {
         run(new State_com_google_code_regexp(), TEST_ALL);
+    }
+
+    @Test
+    public void dregex() {
+        run(new State_dregex(), TEST_BASE);
     }
 
 }
