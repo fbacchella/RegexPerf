@@ -41,11 +41,38 @@ public class State_org_joni_ascii_unsafe extends Runner<org.joni.Regex> {
     protected boolean match(Regex pattern, String searched) {
         byte[] str = getBytesAscii(searched);
         Matcher matcher = pattern.matcher(str);
+        return matcher.match(0, str.length, Option.DEFAULT) != -1;
+    }
+
+    @Override
+    protected boolean find(Regex pattern, String searched) {
+        byte[] str = getBytesAscii(searched);
+        Matcher matcher = pattern.matcher(str);
         return matcher.search(0, str.length, Option.DEFAULT) != -1;
     }
 
     @Override
-    protected String[] find(Regex pattern, String searched) {
+    protected String[] matchGroup(Regex pattern, String searched) {
+        byte[] str = getBytesAscii(searched);
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.match(0, str.length, Option.DEFAULT) != -1) {
+            Region region = matcher.getEagerRegion();
+            String[] found = new String[region.getNumRegs()];
+            for (int i = 0 ; i < found.length ; i++) {
+                int begin = region.getBeg(i);
+                int end = region.getEnd(i);
+                if (begin != -1 && end != -1) {
+                    found[i] = new String(str, begin, end - begin, StandardCharsets.US_ASCII);
+                }
+            }
+            return found;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    protected String[] findGroup(Regex pattern, String searched) {
         byte[] str = getBytesAscii(searched);
         Matcher matcher = pattern.matcher(str);
         if (matcher.search(0, str.length, Option.DEFAULT) != -1) {

@@ -30,9 +30,4 @@ public class State_org_apache_regexp extends Runner<ThreadLocal<RE>>{
         return pattern.get().match(searched);
     }
 
-    @Override
-    protected String[] find(ThreadLocal<RE> pattern, String searched) {
-        throw new AssertionError(NOT_SUPPORTED);
-    }
-
 }

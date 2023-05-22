@@ -37,12 +37,7 @@ public class State_com_stevesoft_pat extends Runner<ThreadLocal<Regex>>{
 
     @Override
     protected boolean match(ThreadLocal<Regex> pattern, String searched) {
-        return pattern.get().search(searched);
-    }
-
-    @Override
-    protected String[] find(ThreadLocal<Regex> pattern, String searched) {
-        throw new AssertionError("Not supported");
+        return pattern.get().matchAt(searched, 0);
     }
 
 }

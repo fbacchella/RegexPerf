@@ -38,8 +38,14 @@ public class State_dk_brics_automaton extends Runner<RunAutomaton> {
     }
 
     @Override
-    protected String[] find(RunAutomaton pattern, String searched) {
-        // Not hanlded, AutomatonMatcher.group(int) is a trap
+    protected String[] matchGroup(RunAutomaton pattern, String searched) {
+        // Not handled, AutomatonMatcher.group(int) is a trap
+        throw new AssertionError(NOT_SUPPORTED);
+    }
+
+    @Override
+    protected String[] findGroup(RunAutomaton pattern, String searched) {
+        // Not handled, AutomatonMatcher.group(int) is a trap
         throw new AssertionError(NOT_SUPPORTED);
     }
 

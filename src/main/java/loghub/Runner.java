@@ -20,7 +20,9 @@
 package loghub;
 
 import java.util.Arrays;
+import java.util.function.BiFunction;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.infra.Blackhole;
@@ -132,13 +134,25 @@ public abstract class Runner<P> {
 
     protected abstract P[] getPatternStorage(int size);
     protected abstract P generate(String i);
-    protected abstract boolean match(P pattern, String searched);
-    protected abstract String[] find(P pattern, String searched);
 
     public void run(Blackhole blackHole) {
         for (int patnum = 0; patnum < 3; patnum++) {
             for (int strnum = 0; strnum < 5; strnum++) {
                 match(patnum, strnum, blackHole);
+    protected boolean match(P pattern, String searched) {
+        throw new AssertionError(NOT_SUPPORTED);
+    }
+    protected boolean find(P pattern, String searched) {
+        throw new AssertionError(NOT_SUPPORTED);
+    }
+
+    protected String[] matchGroup(P pattern, String searched) {
+        throw new AssertionError(NOT_SUPPORTED);
+    }
+
+    protected String[] findGroup(P pattern, String searched) {
+        throw new AssertionError(NOT_SUPPORTED);
+    }
             }
         }
     }
@@ -182,21 +196,37 @@ public abstract class Runner<P> {
     }
 
     private void match(int patnum, int strnum, Blackhole blackHole) {
-        P pattern = compiledPatterns[patnum];
-        assert pattern != null : patterns[patnum] + " not found";
-        boolean b = match(pattern, strings[strnum]);
-        blackHole.consume(b);
-        assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], b, expectedMatch[patnum][strnum]);
+        doSearch(patnum, strnum, blackHole, this::match);
     }
 
     private void find(int patnum, int strnum, Blackhole blackHole) {
+        doSearch(patnum, strnum, blackHole, this::find);
+    }
+
+    private void matchGroup(int patnum, int strnum, Blackhole blackHole) {
+        doSearchGroup(patnum, strnum, blackHole, this::matchGroup);
+    }
+
+    private void findGroup(int patnum, int strnum, Blackhole blackHole) {
+        doSearchGroup(patnum, strnum, blackHole, this::findGroup);
+    }
+
+    private void doSearch(int patnum, int strnum, Blackhole blackHole, BiFunction<P, String, Boolean> search) {
         P pattern = compiledPatterns[patnum];
         assert pattern != null : patterns[patnum] + " not found";
-        String[] b = find(pattern, strings[strnum]);
+        boolean b = search.apply(pattern, strings[strnum]);
         blackHole.consume(b);
-        assert b != null : String.format("[%d][%d] %s %s: %s = %s ?", patnum, strnum, patterns[patnum], strings[strnum], Arrays.toString(b), expectedMatch[patnum][strnum]);
+        assert (b == expectedMatch[patnum][strnum]) : String.format("[%d][%d] /%s/ \"%s\": expected %s, was %s", patnum, strnum, patterns[patnum], strings[strnum], expectedMatch[patnum][strnum], b);
     }
-    
+
+    private void doSearchGroup(int patnum, int strnum, Blackhole blackHole, BiFunction<P, String, String[]> search) {
+        P pattern = compiledPatterns[patnum];
+        assert pattern != null : patterns[patnum] + " not found";
+        String[] b = search.apply(pattern, strings[strnum]);
+        blackHole.consume(b);
+        assert expectedMatch[patnum][strnum] == false || b != null : String.format("[%d][%d] /%s/ \"%s\": %s = %s", patnum, strnum, patterns[patnum], strings[strnum], Arrays.toString(b), expectedMatch[patnum][strnum]);
+    }
+
     protected String translate(int pattnum) {
         return patterns[pattnum];
     }

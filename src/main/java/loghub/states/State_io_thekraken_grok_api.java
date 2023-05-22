@@ -38,7 +38,7 @@ public class State_io_thekraken_grok_api extends Runner<Grok> {
     }
 
     @Override
-    protected String[] find(Grok pattern, String searched) {
+    protected String[] matchGroup(Grok pattern, String searched) {
         Match gm = pattern.match(searched);
         gm.captures();
         Map<String, Object> content = gm.toMap();

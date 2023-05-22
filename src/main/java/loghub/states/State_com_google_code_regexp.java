@@ -29,11 +29,30 @@ public class State_com_google_code_regexp extends Runner<Pattern> {
 
     @Override
     protected boolean match(Pattern pattern, String searched) {
+        return pattern.matcher(searched).matches();
+    }
+
+    @Override
+    protected boolean find(Pattern pattern, String searched) {
         return pattern.matcher(searched).find();
     }
 
     @Override
-    protected String[] find(Pattern pattern, String searched) {
+    protected String[] matchGroup(Pattern pattern, String searched) {
+        Matcher m = pattern.matcher(searched);
+        if (m.matches()) {
+            String[] found = new String[m.groupCount()];
+            for (int i = 0; i < found.length; i++) {
+                found[i] = m.group(i);
+            }
+            return found;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    protected String[] findGroup(Pattern pattern, String searched) {
         Matcher m = pattern.matcher(searched);
         if (m.find()) {
             String[] found = new String[m.groupCount()];

@@ -31,9 +31,24 @@ public class State_jregex extends Runner<Pattern> {
     }
 
     @Override
-    protected String[] find(Pattern pattern, String searched) {
+    protected boolean find(Pattern pattern, String searched) {
+        return pattern.matcher(searched).find();
+    }
+
+    @Override
+    protected String[] matchGroup(Pattern pattern, String searched) {
         Matcher m = pattern.matcher(searched);
         if (m.matches()) {
+            return m.groups();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    protected String[] findGroup(Pattern pattern, String searched) {
+        Matcher m = pattern.matcher(searched);
+        if (m.find()) {
             return m.groups();
         } else {
             return null;

@@ -39,8 +39,8 @@ public class State_com_basistech_tclre extends Runner<RePattern> {
     }
 
     @Override
-    protected String[] find(RePattern pattern, String searched) {
-        throw new AssertionError("Not supported");
+    protected boolean find(RePattern pattern, String searched) {
+        return pattern.matcher(searched).find();
     }
 
 }

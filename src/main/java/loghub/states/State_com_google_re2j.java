@@ -36,9 +36,4 @@ public class State_com_google_re2j extends Runner<Pattern> {
         return pattern.matches(searched);
     }
 
-    @Override
-    protected String[] find(Pattern pattern, String searched) {
-        throw new AssertionError(NOT_SUPPORTED);
-    }
-
 }

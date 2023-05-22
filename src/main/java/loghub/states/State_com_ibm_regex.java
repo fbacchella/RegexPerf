@@ -10,7 +10,7 @@ public class State_com_ibm_regex extends Runner<Object> {
 
     @Override
     protected Object[] getPatternStorage(int size) {
-        throw new AssertionError(LIBRARY_NOT_FOUND);
+        return new Object[size];
     }
 
     @Override
@@ -24,8 +24,18 @@ public class State_com_ibm_regex extends Runner<Object> {
     }
 
     @Override
-    protected String[] find(Object pattern, String searched) {
-        throw new AssertionError(NOT_SUPPORTED);
+    protected boolean find(Object pattern, String searched) {
+        throw new AssertionError(LIBRARY_NOT_FOUND);
+    }
+
+    @Override
+    protected String[] matchGroup(Object pattern, String searched) {
+        throw new AssertionError(LIBRARY_NOT_FOUND);
+    }
+
+    @Override
+    protected String[] findGroup(Object pattern, String searched) {
+        throw new AssertionError(LIBRARY_NOT_FOUND);
     }
 
 }

@@ -33,7 +33,17 @@ public class State_kmy_regex_util extends Runner<Object> {
     }
 
     @Override
-    protected String[] find(Object pattern, String searched) {
+    protected boolean find(Object pattern, String searched) {
+        throw new AssertionError(NOT_MAVENIZED);
+    }
+
+    @Override
+    protected String[] findGroup(Object pattern, String searched) {
+        throw new AssertionError(NOT_MAVENIZED);
+    }
+
+    @Override
+    protected String[] matchGroup(Object pattern, String searched) {
         throw new AssertionError(NOT_MAVENIZED);
     }
 

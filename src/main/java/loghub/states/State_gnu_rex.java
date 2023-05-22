@@ -25,9 +25,4 @@ public class State_gnu_rex extends Runner<Rex> {
         return pattern.match(searched.toCharArray(), 0, searched.length()) != null;
     }
 
-    @Override
-    protected String[] find(Rex pattern, String searched) {
-        throw new AssertionError(NOT_SUPPORTED);
-    }
-
 }

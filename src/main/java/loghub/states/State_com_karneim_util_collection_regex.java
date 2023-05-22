@@ -34,9 +34,4 @@ public class State_com_karneim_util_collection_regex extends Runner<Pattern> {
         return pattern.contains(searched);
     }
 
-    @Override
-    protected String[] find(Pattern pattern, String searched) {
-        throw new AssertionError("Not supported");
-    }
-
 }

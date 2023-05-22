@@ -25,9 +25,4 @@ public class State_com_ibm_icu_text extends Runner<com.ibm.icu.text.UnicodeSet> 
         return pattern.containsAll(searched);
     }
 
-    @Override
-    protected String[] find(UnicodeSet pattern, String searched) {
-        throw new AssertionError(NOT_SUPPORTED);
-    }
-
 }

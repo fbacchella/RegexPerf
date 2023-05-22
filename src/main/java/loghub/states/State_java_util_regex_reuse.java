@@ -28,11 +28,30 @@ public class State_java_util_regex_reuse extends Runner<ThreadLocal<Matcher>>{
 
     @Override
     protected boolean match(ThreadLocal<Matcher> pattern, String searched) {
+        return pattern.get().reset(searched).matches();
+    }
+
+    @Override
+    protected boolean find(ThreadLocal<Matcher> pattern, String searched) {
         return pattern.get().reset(searched).find();
     }
 
     @Override
-    protected String[] find(ThreadLocal<Matcher> pattern, String searched) {
+    protected String[] matchGroup(ThreadLocal<Matcher> pattern, String searched) {
+        Matcher m = pattern.get().reset(searched);
+        if (m.matches()) {
+            String[] found = new String[m.groupCount()];
+            for (int i = 0; i < found.length; i++) {
+                found[i] = m.group(i);
+            }
+            return found;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    protected String[] findGroup(ThreadLocal<Matcher> pattern, String searched) {
         Matcher m = pattern.get().reset(searched);
         if (m.find()) {
             String[] found = new String[m.groupCount()];
