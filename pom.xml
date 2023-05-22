@@ -79,6 +79,11 @@
             <artifactId>automaton</artifactId>
             <version>1.12-4</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.marianobarrios</groupId>
+            <artifactId>dregex_2.13</artifactId>
+            <version>0.7.0</version>
+        </dependency>
         <!-- to please tcl-regex -->
         <dependency>
             <groupId>org.slf4j</groupId>
