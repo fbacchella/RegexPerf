@@ -163,10 +163,6 @@ public abstract class Runner<P> {
     protected abstract P[] getPatternStorage(int size);
     protected abstract P generate(String i);
 
-    public void run(Blackhole blackHole) {
-        for (int patnum = 0; patnum < 3; patnum++) {
-            for (int strnum = 0; strnum < 5; strnum++) {
-                match(patnum, strnum, blackHole);
     protected boolean match(P pattern, String searched) {
         throw new AssertionError(NOT_SUPPORTED);
     }
@@ -181,19 +177,31 @@ public abstract class Runner<P> {
     protected String[] findGroup(P pattern, String searched) {
         throw new AssertionError(NOT_SUPPORTED);
     }
+
+    private interface PatternOperation {
+        void action(int patnum, int strnum, Blackhole blackHole);
+    }
+
+    private void iterate(IntStream patterns, IntStream strings, Blackhole blackHole, PatternOperation op) {
+        int[] p = patterns.toArray();
+        int[] s = strings.toArray();
+        for (int patnum: p) {
+            for (int strnum: s) {
+                op.action(patnum, strnum, blackHole);
             }
         }
     }
 
+    public void run(Blackhole blackHole) {
+        iterate(IntStream.of(0, 1, 2), IntStream.of(0, 1, 2, 3, 4, 9), blackHole, this::match);
+    }
+
     public void runbackreference(Blackhole blackHole) {
-        int patnum = 3;
-        int strnum = 3;
-        match(patnum, strnum, blackHole);
+        iterate(IntStream.of(3), IntStream.of(3), blackHole, this::match);
     }
 
     public void runcatastroph(Blackhole blackHole) {
-        int patnum = 4;
-        IntStream.of(5, 6).forEach(strnum -> match(patnum, strnum, blackHole));
+        iterate(IntStream.of(4), IntStream.of(5, 6), blackHole, this::match);
     }
 
     public void runbig(Blackhole blackHole) {
@@ -203,7 +211,17 @@ public abstract class Runner<P> {
     }
 
     public void runlog(Blackhole blackHole) {
-        find(patterns.length -1 , strings.length - 1, blackHole);
+        int patnum = 6;
+        int strnum = 8;
+        matchGroup(patnum , strnum, blackHole);
+    }
+
+    public void runmatch(Blackhole blackHole) {
+        iterate(IntStream.of(7), IntStream.of(9, 10), blackHole, this::match);
+    }
+
+    public void runfind(Blackhole blackHole) {
+        iterate(IntStream.of(7), IntStream.of(9, 10), blackHole, this::find);
     }
 
     @Setup
