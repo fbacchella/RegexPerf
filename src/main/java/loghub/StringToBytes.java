@@ -59,18 +59,7 @@ public class StringToBytes {
         return b;
     }
 
-    @Benchmark
-    public byte[] getBytesAsciiUnsafe() {
-        final int length = STR.length();
-        final char[] buffer = UnsafeUtils.toCharArray(STR);
-        final byte[] b = new byte[length];
-        for (int j = 0; j < length; j++) {
-            b[j] = (byte) (buffer[j] & 0x7F);
-        }
-        return b;
-    }
-
-     static final ThreadLocal<CharsetEncoder> asciiencode = ThreadLocal.withInitial( () -> {
+    static final ThreadLocal<CharsetEncoder> asciiencode = ThreadLocal.withInitial( () -> {
         CharsetEncoder encoder = StandardCharsets.US_ASCII.newEncoder();
         return encoder.onUnmappableCharacter(CodingErrorAction.REPORT);
     });

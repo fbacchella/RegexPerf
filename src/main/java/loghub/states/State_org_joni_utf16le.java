@@ -11,7 +11,6 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 import loghub.Runner;
-import loghub.UnsafeUtils;
 
 @State(Scope.Benchmark)
 public class State_org_joni_utf16le extends Runner<org.joni.Regex> {
@@ -23,7 +22,7 @@ public class State_org_joni_utf16le extends Runner<org.joni.Regex> {
 
     private static byte[] getBytesUTF16LE(String searched) {
         int length = searched.length();
-        char[] buffer = UnsafeUtils.toCharArray(searched);
+        char[] buffer = searched.toCharArray();
         byte[] b = new byte[length * 2];
         for (int j = 0; j < length; j++) {
             b[j*2] = (byte) (buffer[j] & 0xFF);

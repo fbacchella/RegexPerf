@@ -26,7 +26,6 @@ import loghub.states.State_org_apache_xerces_impl_xpath_regex;
 import loghub.states.State_org_joni;
 import loghub.states.State_org_joni_ascii;
 import loghub.states.State_org_joni_ascii_reuse;
-import loghub.states.State_org_joni_ascii_unsafe;
 import loghub.states.State_org_joni_utf16le;
 
 public class RunnerTest {
@@ -152,11 +151,6 @@ public class RunnerTest {
     @Test
     public void org_joni_ascii_reuse() {
         run(new State_org_joni_ascii_reuse(), TEST_ALL);
-    }
-
-    @Test
-    public void org_joni_ascii_unsafe() {
-        run(new State_org_joni_ascii_unsafe(), TEST_ALL);
     }
 
     @Test

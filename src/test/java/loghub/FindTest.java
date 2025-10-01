@@ -26,7 +26,6 @@ import loghub.states.State_org_apache_xerces_impl_xpath_regex;
 import loghub.states.State_org_joni;
 import loghub.states.State_org_joni_ascii;
 import loghub.states.State_org_joni_ascii_reuse;
-import loghub.states.State_org_joni_ascii_unsafe;
 import loghub.states.State_org_joni_utf16le;
 
 public class FindTest {
@@ -156,11 +155,6 @@ public class FindTest {
     @Test
     public void findSemantic_org_joni_ascii_reuse() throws Exception {
         doFind(new State_org_joni_ascii_reuse());
-    }
-
-    @Test
-    public void findSemantic_org_joni_ascii_unsafe() throws Exception {
-        doFind(new State_org_joni_ascii_unsafe());
     }
 
     @Test

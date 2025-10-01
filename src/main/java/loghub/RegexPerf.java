@@ -26,7 +26,6 @@ import loghub.states.State_org_apache_xerces_impl_xpath_regex;
 import loghub.states.State_org_joni;
 import loghub.states.State_org_joni_ascii;
 import loghub.states.State_org_joni_ascii_reuse;
-import loghub.states.State_org_joni_ascii_unsafe;
 import loghub.states.State_org_joni_utf16le;
 
 /**
@@ -355,35 +354,6 @@ public class RegexPerf {
 
     @Benchmark
     public void catastrophic_org_apache_xerces_impl_xpath_regex_RegularExpression(State_org_apache_xerces_impl_xpath_regex state, Blackhole blackHole) {
-        state.runcatastroph(blackHole);
-    }
-
-    /************************
-     * org_joni_ascii_unsafe *
-     ************************/
-
-    @Benchmark
-    public void base_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
-        state.run(blackHole);
-    }
-
-    @Benchmark
-    public void br_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
-        state.runbackreference(blackHole);
-    }
-
-    @Benchmark
-    public void log_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
-        state.runlog(blackHole);
-    }
-
-    @Benchmark
-    public void big_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
-        state.runbig(blackHole);
-    }
-
-    @Benchmark
-    public void catastrophic_org_joni_ascii_unsafe(State_org_joni_ascii_unsafe state, Blackhole blackHole) {
         state.runcatastroph(blackHole);
     }
 
